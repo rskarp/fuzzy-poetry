@@ -1,0 +1,43 @@
+{
+  "api": {
+    "fuzzyPoetryApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "generatePoemVariation"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "generatePoemVariation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_generatePoemVariation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "generatePoemVariation"
+        }
+      ]
+    },
+    "AMPLIFY_function_generatePoemVariation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "generatePoemVariation"
+        }
+      ]
+    }
+  }
+}
