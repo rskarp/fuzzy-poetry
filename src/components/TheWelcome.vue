@@ -1,13 +1,56 @@
-<script setup lang="ts">
+<script lang="ts">
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
+import { API } from 'aws-amplify'
+
+export default {
+  components: {
+    WelcomeItem,
+    DocumentationIcon
+  },
+  data() {
+    return {
+      text: '',
+      variation: ''
+    }
+  },
+  methods: {
+    async callApi(event: MouseEvent) {
+      const test = await API.post('fuzzyPoetryApi', '/poem-variation', {
+        body: { text: this.text }
+      })
+      // alert(JSON.stringify(test))
+      this.variation = test.message
+    }
+  }
+}
 </script>
 
 <template>
+  <WelcomeItem>
+    <!-- <template #icon>
+      <DocumentationIcon />
+    </template> -->
+    <template #heading>Enter Poem Text</template>
+
+    <textarea
+      class="textarea textarea-bordered textarea-lg w-full"
+      placeholder="Enter text here..."
+      v-model="text"
+    ></textarea>
+  </WelcomeItem>
+  <div class="w-full flex flex-row justify-self-center justify-center content-center">
+    <button class="btn btn-primary" @click="callApi">Generate Variation</button>
+  </div>
+  <WelcomeItem>
+    <!-- <template #icon>
+      <DocumentationIcon />
+    </template> -->
+    <template #heading>Generated Variation</template>
+
+    {{ variation }}
+  </WelcomeItem>
+  <!-- 
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -82,5 +125,5 @@ import SupportIcon from './icons/IconSupport.vue'
     As an independent project, Vue relies on community backing for its sustainability. You can help
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </WelcomeItem>
+  </WelcomeItem> -->
 </template>
