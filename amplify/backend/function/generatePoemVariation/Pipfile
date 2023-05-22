@@ -11,6 +11,8 @@ aws-wsgi = "*"
 boto3 = "*"
 flask = "*"
 flask-cors = "*"
+spacy = "*"
+python-datamuse = "*"
 
 [requires]
 python_version = "3.9"

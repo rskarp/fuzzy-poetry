@@ -1,1 +1,7 @@
-{ "test": "event" }
+{
+  "path": "/poem-variation",
+  "httpMethod": "POST",
+  "queryStringParameters": "",
+  "body": "{ \"text\": \"poem text here\" }",
+  "headers": { "Accept": "application/json", "Content-Type": "application/json" }
+}
