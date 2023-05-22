@@ -8,14 +8,9 @@ export default {
   },
   methods: {
     async callApi(event: MouseEvent) {
-      const test = await API.get('fuzzyPoetryApi','/poem-variation',{})
-    // `this` inside methods points to the current active instance
-    // alert(`Hello ${this.greeting}!`)
-    // `event` is the native DOM event
-    // if (test) {
+      const test = await API.get('fuzzyPoetryApi', '/poem-variation', {})
       alert(JSON.stringify(test))
-    // }
-  }
+    }
   }
 }
 </script>
@@ -23,7 +18,10 @@ export default {
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <button @click="callApi">Test API</button>
+    <button class="btn" @click="callApi">Test API</button>
+    <div class="bg-white text-green-500 sm:bg-green md:bg-blue md:text-red lg:bg-red xl:bg-orange">
+      Tailwind Test
+    </div>
   </div>
 </template>
 
