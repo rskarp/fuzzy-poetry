@@ -3,13 +3,15 @@ import awsgi
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 # from helpers import createPoemVariation
-
 # import spacy
 # import datamuse
 # from random import sample
+# # import en_core_web_md
 # from string import punctuation
 
+
 # def get_tokens(text):
+#     # nlp = en_core_web_md.load()
 #     try:
 #         nlp = spacy.load('en_core_web_md')
 #     except OSError:
@@ -18,8 +20,10 @@ from flask import Flask, jsonify, request
 #         nlp = spacy.load('en_core_web_md')
 #     doc = nlp(text)
 #     tokens = [token for token in doc]
-#     content_tokens = [token for token in doc if token.pos_ in ['NOUN', 'VERB', 'ADJ', 'ADV']]
+#     content_tokens = [token for token in doc if token.pos_ in [
+#         'NOUN', 'VERB', 'ADJ', 'ADV']]
 #     return tokens, content_tokens
+
 
 # def spacyPOS_to_datamusePOS(pos):
 #     if pos == 'NOUN':
@@ -33,7 +37,8 @@ from flask import Flask, jsonify, request
 #     else:
 #         return ''
 
-# def get_candidates(token, replacement_types, max_results = 50):
+
+# def get_candidates(token, replacement_types, max_results=50):
 #     # print(f'Replacing {token.text}...')
 #     dm = datamuse.Datamuse()
 #     text = token.text.strip(punctuation)
@@ -44,28 +49,32 @@ from flask import Flask, jsonify, request
 #     rel_hom = text if 'rel_hom' in replacement_types else None
 
 #     # Get words using Datamuse API
-#     options = dm.words(md='p', ml=ml, sp=sp, rel_trg=rel_trg, rel_cns=rel_cns, rel_hom=rel_hom, max=max_results)
+#     options = dm.words(md='p', ml=ml, sp=sp, rel_trg=rel_trg,
+#                        rel_cns=rel_cns, rel_hom=rel_hom, max=max_results)
 #     # Filter words by matching part of speech
 #     return [o for o in options if 'tags' in o and spacyPOS_to_datamusePOS(token.pos_) in o['tags']]
+
 
 # def createPoemVariation(text):
 #     tokens, content_tokens = get_tokens(text)
 
-#     replacement_types=['ml']
-#     max_options=50
+#     # replaceRandomWords
+#     replacement_types = ['ml']
+#     max_options = 50
 #     percent_to_replace = 100
 #     number_to_replace = int(len(content_tokens) * (percent_to_replace / 100))
-#     out_words=[]
+#     out_words = []
 #     # choose number_to_replace tokens to replace
 #     to_replace = sample(content_tokens, number_to_replace)
 #     print(f'Proccessing {len(tokens)} tokens')
 #     for i, token in enumerate(tokens):
 #         newWord = token.text
-#         if  token in to_replace:
+#         if token in to_replace:
 #             options = get_candidates(token, replacement_types, max_options)
 #             # print(f'Num candidates: {len(options)}')
 #             if len(options) <= 1:
-#                 print(f'Num candidates: {len(options)}, word: {token.text}, type: {",".join(replacement_types)}')
+#                 print(
+#                     f'Num candidates: {len(options)}, word: {token.text}, type: {",".join(replacement_types)}')
 #             if len(options) > 0:
 #                 # print(len(options))
 #                 chosen = sample(options, 1)
@@ -74,7 +83,8 @@ from flask import Flask, jsonify, request
 #                 newWord = f'{token.text}[#ORIGINAL_{token.text}]'
 
 #         out_words.append(f'{newWord}{token.whitespace_}')
-#     poem = ''.join(out_words).replace('\n\n','\n')
+
+#     poem = ''.join(out_words).replace('\n\n', '\n')
 #     return poem
 
 app = Flask(__name__)
