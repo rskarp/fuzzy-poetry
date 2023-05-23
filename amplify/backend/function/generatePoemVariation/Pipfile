@@ -7,10 +7,7 @@ verify_ssl = true
 
 [packages]
 src = {editable = true, path = "./src"}
-aws-wsgi = "*"
 boto3 = "*"
-flask = "*"
-flask-cors = "*"
 spacy = "*"
 python-datamuse = "*"
 

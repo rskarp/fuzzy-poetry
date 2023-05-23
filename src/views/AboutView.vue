@@ -1,15 +1,8 @@
 <script lang="ts">
-import { API } from 'aws-amplify'
 export default {
   data() {
     return {
       greeting: 'Hello World!'
-    }
-  },
-  methods: {
-    async callApi(event: MouseEvent) {
-      const test = await API.get('fuzzyPoetryApi', '/poem-variation', {})
-      alert(JSON.stringify(test))
     }
   }
 }
@@ -20,7 +13,6 @@ export default {
     <h1>
       This is an about page. Put more text here describing the project and its contributors etc.
     </h1>
-    <button class="btn" @click="callApi">Test API</button>
   </div>
 </template>
 

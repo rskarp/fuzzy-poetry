@@ -1,7 +1,12 @@
 {
-  "path": "/poem-variation",
-  "httpMethod": "POST",
-  "queryStringParameters": "",
-  "body": "{ \"text\": \"poem text here\" }",
-  "headers": { "Accept": "application/json", "Content-Type": "application/json" }
+  "typeName": "Mutation",
+  "fieldName": "generatePoemVariation",
+  "arguments": { "originalPoem": "test" },
+  "identity": null,
+  "source": null,
+  "request": {
+    "headers": {},
+    "domainName": null
+  },
+  "prev": { "result": {} }
 }
