@@ -1,13 +1,18 @@
 import json
-import awsgi
-from flask_cors import CORS
-from flask import Flask, jsonify, request
+# import awsgi
+import boto3
+import os
+# from flask_cors import CORS
+# from flask import Flask, jsonify, request
 # from helpers import createPoemVariation
 import spacy
 import datamuse
 from random import sample
 # # import en_core_web_md
 from string import punctuation
+
+client = boto3.client("dynamodb")
+TABLE = os.environ.get("STORAGE_POEMVARIATION_NAME")
 
 
 def get_tokens(text):
@@ -88,30 +93,37 @@ def createPoemVariation(text):
     return poem
 
 
-app = Flask(__name__)
-CORS(app)
+# app = Flask(__name__)
+# CORS(app)
 
-BASE_ROUTE = '/poem-variation'
-
-
-@app.route(BASE_ROUTE, methods=['GET'])
-def get_poem_variations():
-    return jsonify(message="hello world")
+# BASE_ROUTE = '/poem-variation'
 
 
-@app.route(BASE_ROUTE, methods=['POST'])
-def create_poem_variation():
-    request_json = request.get_json()
-    poemText = request_json.get('text')
-    variation = createPoemVariation(poemText)
-    return jsonify(message=variation)
+# @app.route(BASE_ROUTE, methods=['GET'])
+# def get_poem_variations():
+#     return jsonify(message="hello world")
+
+
+# @app.route(BASE_ROUTE, methods=['POST'])
+# def create_poem_variation():
+#     request_json = request.get_json()
+#     poemText = request_json.get('text')
+#     variation = createPoemVariation(poemText)
+#     return jsonify(message=variation)
 
 
 def handler(event, context):
     print('received event:')
     print(event)
+    text = event.arguments['originalPoem']
+    variation = createPoemVariation(text)
+    client.put_item(TableName=TABLE, Item={
+        'original_text': text,
+        'variation_text': variation,
+    })
+    return variation
 
-    return awsgi.response(app, event, context)
+    # return awsgi.response(app, event, context)
 
 
 if __name__ == '__main__':

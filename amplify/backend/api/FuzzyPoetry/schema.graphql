@@ -1,0 +1,11 @@
+type PoemVariation @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  original_text: String
+  variation_text: String
+}
+
+type Mutation {
+  generatePoemVariation(originalPoem: String): String
+    @auth(rules: [{ allow: public }])
+    @function(name: "generatePoemVariation-${env}")
+}

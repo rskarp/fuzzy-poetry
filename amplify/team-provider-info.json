@@ -15,11 +15,12 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-staging-213921-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-73537a524d334d313535-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-354c2f5265464d6d4e64-build.zip"
         }
       },
       "api": {
-        "fuzzyPoetryApi": {}
+        "fuzzyPoetryApi": {},
+        "FuzzyPoetry": {}
       }
     }
   }

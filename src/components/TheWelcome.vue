@@ -2,6 +2,12 @@
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import { API } from 'aws-amplify'
+import * as mutations from '../graphql/mutations'
+import { type GraphQLQuery } from '@aws-amplify/api'
+import {
+  type GeneratePoemVariationMutationVariables,
+  type GeneratePoemVariationMutation
+} from '../API'
 
 export default {
   components: {
@@ -16,11 +22,19 @@ export default {
   },
   methods: {
     async callApi(event: MouseEvent) {
-      const test = await API.post('fuzzyPoetryApi', '/poem-variation', {
-        body: { text: this.text }
+      const poemDetails: GeneratePoemVariationMutationVariables = {
+        originalPoem: this.text
+      }
+
+      const newPoem = await API.graphql<GraphQLQuery<GeneratePoemVariationMutation>>({
+        query: mutations.generatePoemVariation,
+        variables: { input: poemDetails }
       })
+      // const test = await API.post('fuzzyPoetryApi', '/poem-variation', {
+      //   body: { text: this.text }
+      // })
       // alert(JSON.stringify(test))
-      this.variation = test.message
+      this.variation = newPoem.data?.generatePoemVariation ?? ''
     }
   }
 }
