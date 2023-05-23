@@ -19,7 +19,6 @@
         }
       },
       "api": {
-        "fuzzyPoetryApi": {},
         "FuzzyPoetry": {}
       }
     }

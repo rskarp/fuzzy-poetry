@@ -4,11 +4,6 @@ export type AmplifyDependentResourcesAttributes = {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
       "GraphQLAPIKeyOutput": "string"
-    },
-    "fuzzyPoetryApi": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
     }
   },
   "function": {
