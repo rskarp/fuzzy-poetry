@@ -129,10 +129,10 @@ def handler(event, context):
     variation = createPoemVariation(text)
     client.put_item(TableName=TABLE, Item={
         'id': {'S': str(uuid4())},
-        'original_text': {'S': variation},
+        'original_text': {'S': text},
         'variation_text': {'S': variation},
     })
-    return text
+    return variation
 
 
 if __name__ == '__main__':
