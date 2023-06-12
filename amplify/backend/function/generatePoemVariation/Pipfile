@@ -7,10 +7,6 @@ verify_ssl = true
 
 [packages]
 src = {editable = true, path = "./src"}
-boto3 = "*"
-python-datamuse = "*"
-nltk = "*"
-regex = "*"
 
 [requires]
 python_version = "3.9"

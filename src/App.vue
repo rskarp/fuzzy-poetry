@@ -75,9 +75,13 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </footer>
 </template>
-<!-- 
+
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Beastly&display=swap');
 header {
+  font-family: 'Rubik Beastly', cursive;
+}
+/* header {
   line-height: 1.5;
   max-height: 100vh;
 }
@@ -137,5 +141,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
-</style> -->
+} */
+</style>

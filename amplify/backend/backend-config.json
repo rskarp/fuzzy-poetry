@@ -23,13 +23,57 @@
     }
   },
   "function": {
+    "createPoemVariation": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fuzzypoetrypython39nltk": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer"
+    },
     "generatePoemVariation": {
       "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
+    "AMPLIFY_function_createPoemVariation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPoemVariation"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPoemVariation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPoemVariation"
+        }
+      ]
+    },
+    "AMPLIFY_function_fuzzypoetrypython39nltk_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fuzzypoetrypython39nltk"
+        }
+      ]
+    },
+    "AMPLIFY_function_fuzzypoetrypython39nltk_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fuzzypoetrypython39nltk"
+        }
+      ]
+    },
     "AMPLIFY_function_generatePoemVariation_deploymentBucketName": {
       "usedBy": [
         {

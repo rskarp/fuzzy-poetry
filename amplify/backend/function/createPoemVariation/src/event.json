@@ -1,0 +1,12 @@
+{
+  "typeName": "Mutation",
+  "fieldName": "generatePoemVariation",
+  "arguments": { "originalPoem": "test" },
+  "identity": null,
+  "source": null,
+  "request": {
+    "headers": {},
+    "domainName": null
+  },
+  "prev": { "result": {} }
+}
