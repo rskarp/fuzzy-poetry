@@ -9,10 +9,10 @@ from random import sample
 # # import en_core_web_md
 from string import punctuation
 from nltk.tokenize import word_tokenize, sent_tokenize
-
-nltk.download('averaged_perceptron_tagger')
-nltk.download('punkt')
-nltk.download('universal_tagset')
+nltk.data.path.append('./nltk_data')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('punkt')
+# nltk.download('universal_tagset')
 
 client = boto3.client("dynamodb", 'us-east-1')
 # os.environ.get("STORAGE_POEMVARIATIONTABLE_NAME")
