@@ -9,21 +9,14 @@ export default {
 </script>
 
 <template>
-  <div class="about">
-    <h1 class="text-violet-500">
-      <ul>
-        <li>TODO:</li>
-        <li>Project Overview</li>
-        <li>Context</li>
-        <li>People</li>
-      </ul>
-    </h1>
+  <div class="contact">
+    <h1 class="text-violet-500">TODO: Insert "Contact Us" box here</h1>
   </div>
 </template>
 
 <style>
 @media (min-width: 1024px) {
-  .about {
+  .contact {
     min-height: 90vh;
     display: flex;
     flex-direction: column;

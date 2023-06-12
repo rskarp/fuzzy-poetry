@@ -40,14 +40,16 @@ import HelloWorld from './components/HelloWorld.vue'
               </svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2">Fuzzy Poetry</div>
+          <div class="flex-1 px-2 mx-2 text-green-400">Fuzzy Poetry</div>
           <div class="flex-none hidden lg:block">
             <nav>
-              <ul class="menu menu-horizontal">
+              <ul class="menu menu-horizontal text-pink-400">
                 <!-- Navbar menu content here -->
 
                 <li><RouterLink to="/">Home</RouterLink></li>
                 <li><RouterLink to="/about">About</RouterLink></li>
+                <li><RouterLink to="/contact">Contact</RouterLink></li>
+                <li><RouterLink to="/how-it-works">How It Works</RouterLink></li>
               </ul>
             </nav>
           </div>
@@ -64,6 +66,8 @@ import HelloWorld from './components/HelloWorld.vue'
         <nav>
           <li><RouterLink to="/">Home</RouterLink></li>
           <li><RouterLink to="/about">About</RouterLink></li>
+          <li><RouterLink to="/contact">Contact</RouterLink></li>
+          <li><RouterLink to="/how-it-works">How It Works</RouterLink></li>
         </nav>
       </ul>
     </div>

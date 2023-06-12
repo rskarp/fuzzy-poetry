@@ -45,7 +45,7 @@ export default {
     <!-- <template #icon>
       <DocumentationIcon />
     </template> -->
-    <template #heading>Enter Poem Text</template>
+    <template #heading><span class="text-violet-500">Enter Poem Text</span></template>
 
     <textarea
       class="textarea textarea-bordered textarea-lg w-full"
@@ -78,7 +78,7 @@ export default {
     <!-- <template #icon>
       <DocumentationIcon />
     </template> -->
-    <template #heading>Generated Variation</template>
+    <template #heading><span class="text-violet-500">Generated Variation</span></template>
 
     {{ variation }}
   </WelcomeItem>
