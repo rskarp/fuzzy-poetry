@@ -1,4 +1,28 @@
 {
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fuzzypoetry-develop-15021-authRole",
+      "UnauthRoleArn": "arn:aws:iam::643007696022:role/amplify-fuzzypoetry-develop-15021-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::643007696022:role/amplify-fuzzypoetry-develop-15021-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
+      "UnauthRoleName": "amplify-fuzzypoetry-develop-15021-unauthRole",
+      "StackName": "amplify-fuzzypoetry-develop-15021",
+      "StackId": "arn:aws:cloudformation:us-east-1:643007696022:stack/amplify-fuzzypoetry-develop-15021/29473af0-0731-11ee-a10d-0a2bb2a1c0ef",
+      "AmplifyAppId": "d1u84p2m68g5tr"
+    },
+    "categories": {
+      "function": {
+        "generatePoemVariation": {
+          "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
+          "s3Key": "amplify-builds/generatePoemVariation-53615672564a724c7549-build.zip"
+        }
+      },
+      "api": {
+        "FuzzyPoetry": {}
+      }
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-fuzzypoetry-staging-213921-authRole",
