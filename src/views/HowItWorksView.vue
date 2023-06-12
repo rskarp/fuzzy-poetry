@@ -9,14 +9,14 @@ export default {
 </script>
 
 <template>
-  <div class="contact">
+  <div class="how-it-works">
     <h1 class="text-violet-500">TODO: Insert code/github link</h1>
   </div>
 </template>
 
 <style>
 @media (min-width: 1024px) {
-  .contact {
+  .how-it-works {
     min-height: 90vh;
     display: flex;
     flex-direction: column;
