@@ -10,7 +10,7 @@ type PoemVariation @model @auth(rules: [{ allow: public }]) {
 }
 
 type Mutation {
-  generatePoemVariation(originalPoem: String, replacementTypes: ReplacementType[]): String
+  generatePoemVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
     @auth(rules: [{ allow: public }])
     @function(name: "generatePoemVariation-${env}")
 }
