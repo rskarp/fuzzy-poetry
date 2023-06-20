@@ -81,6 +81,12 @@ export type DeletePoemVariationInput = {
   _version?: number | null,
 };
 
+export enum ReplacementType {
+  MEANS_LIKE = "MEANS_LIKE",
+  TRIGGERED_BY = "TRIGGERED_BY",
+}
+
+
 export type ModelPoemVariationFilterInput = {
   id?: ModelIDInput | null,
   original_text?: ModelStringInput | null,
@@ -210,6 +216,7 @@ export type DeletePoemVariationMutation = {
 
 export type GeneratePoemVariationMutationVariables = {
   originalPoem?: string | null,
+  replacementTypes?: Array< ReplacementType | null > | null,
 };
 
 export type GeneratePoemVariationMutation = {

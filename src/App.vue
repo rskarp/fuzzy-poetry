@@ -61,7 +61,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <div class="drawer-side">
       <label for="my-drawer-3" class="drawer-overlay"></label>
 
-      <ul class="menu p-4 w-80 bg-base-100">
+      <ul class="menu p-4 w-80 bg-base-100 text-pink-400">
         <!-- Sidebar content here -->
         <nav>
           <li><RouterLink to="/">Home</RouterLink></li>
