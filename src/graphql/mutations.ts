@@ -54,7 +54,13 @@ export const deletePoemVariation = /* GraphQL */ `
   }
 `;
 export const generatePoemVariation = /* GraphQL */ `
-  mutation GeneratePoemVariation($originalPoem: String) {
-    generatePoemVariation(originalPoem: $originalPoem)
+  mutation GeneratePoemVariation(
+    $originalPoem: String
+    $replacementTypes: [ReplacementType]
+  ) {
+    generatePoemVariation(
+      originalPoem: $originalPoem
+      replacementTypes: $replacementTypes
+    )
   }
 `;

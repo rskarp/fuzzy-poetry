@@ -4,7 +4,7 @@ import DocumentationIcon from './icons/IconDocumentation.vue'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
 import { type GraphQLQuery } from '@aws-amplify/api'
-import { type GeneratePoemVariationMutation } from '../API'
+import { ReplacementType, type GeneratePoemVariationMutation } from '../API'
 
 export default {
   components: {
@@ -27,8 +27,8 @@ export default {
         this.replacement.ml = true
       }
       const replacementTypes = [
-        ...(this.replacement.ml ? ['MEANS_LIKE'] : []),
-        ...(this.replacement.rel_trg ? ['TRIGGERED_BY'] : [])
+        ...(this.replacement.ml ? [ReplacementType.MEANS_LIKE] : []),
+        ...(this.replacement.rel_trg ? [ReplacementType.TRIGGERED_BY] : [])
       ]
       API.graphql<GraphQLQuery<GeneratePoemVariationMutation>>({
         query: mutations.generatePoemVariation,
