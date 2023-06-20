@@ -19,7 +19,10 @@ client = boto3.client("dynamodb", 'us-east-1')
 # TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
 TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
 
-
+replacementEnum2Abbreviation = {
+    'MEANS_LIKE': 'ml',
+    'TRIGGERED_BY': 'rel_trg'
+}
 # def get_tokens_spacy(text):
 #     # nlp = en_core_web_md.load()
 #     try:
@@ -89,11 +92,12 @@ def get_candidates(token, replacement_types, max_results=50):
     return [o for o in options if 'tags' in o and nltk_to_datamusePOS(token[1]) in o['tags']]
 
 
-def createPoemVariation(text):
+def createPoemVariation(text, replacement_types):
     tokens, content_tokens = get_tokens(text)
 
     # replaceRandomWords
-    replacement_types = ['ml']
+    replacements = [replacementEnum2Abbreviation[rt]
+                    for rt in replacement_types]
     max_options = 50
     percent_to_replace = 100
     number_to_replace = int(len(content_tokens) * (percent_to_replace / 100))
@@ -104,11 +108,11 @@ def createPoemVariation(text):
     for i, token in enumerate(tokens):
         newWord = token[0]
         if token in to_replace:
-            options = get_candidates(token, replacement_types, max_options)
+            options = get_candidates(token, replacements, max_options)
             # print(f'Num candidates: {len(options)}')
             if len(options) <= 1:
                 print(
-                    f'Num candidates: {len(options)}, word: {token[0]}, type: {",".join(replacement_types)}')
+                    f'Num candidates: {len(options)}, word: {token[0]}, type: {",".join(replacements)}')
             if len(options) > 0:
                 # print(len(options))
                 chosen = sample(options, 1)
@@ -126,7 +130,8 @@ def handler(event, context):
     print('received event:')
     print(event)
     text = event['arguments']['originalPoem']
-    variation = createPoemVariation(text)
+    replacement_types = event['arguments']['replacementTypes']
+    variation = createPoemVariation(text, replacement_types)
     client.put_item(TableName=TABLE, Item={
         'id': {'S': str(uuid4())},
         'original_text': {'S': text},
@@ -137,4 +142,4 @@ def handler(event, context):
 
 if __name__ == '__main__':
     print(createPoemVariation(
-        '''Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleese was white as snow'''))
+        '''Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleece was white as snow''', ['MEANS_LIKE']))

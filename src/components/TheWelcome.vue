@@ -14,27 +14,48 @@ export default {
   data() {
     return {
       text: '',
-      variation: '',
-      loading: false
+      variation: [''],
+      loading: false,
+      replacement: { ml: true, rel_trg: false }
     }
   },
   methods: {
     callApi(event: MouseEvent) {
       this.loading = true
-      this.variation = ''
+      this.variation = []
+      if (!this.replacement.ml && !this.replacement.rel_trg) {
+        this.replacement.ml = true
+      }
+      const replacementTypes = [
+        ...(this.replacement.ml ? ['MEANS_LIKE'] : []),
+        ...(this.replacement.rel_trg ? ['TRIGGERED_BY'] : [])
+      ]
       API.graphql<GraphQLQuery<GeneratePoemVariationMutation>>({
         query: mutations.generatePoemVariation,
-        variables: { originalPoem: this.text }
+        variables: { originalPoem: this.text, replacementTypes }
       })
         .then((result) => {
-          this.variation = result.data?.generatePoemVariation ?? ''
+          this.variation = this.generateWordsList(result.data?.generatePoemVariation ?? '')
         })
         .catch((result) => {
-          this.variation = `An error occurred. ${JSON.stringify(result)}`
+          this.variation = [`An error occurred. ${JSON.stringify(result)}`]
         })
         .finally(() => {
           this.loading = false
         })
+    },
+    generateWordsList(poemVariation?: string) {
+      const words = poemVariation?.split(/\s+/)
+      return words ?? []
+    },
+    isReplacedWord(word: string) {
+      const regex = /\b(\w+)\[#ORIGINAL_\w+\]/g
+      return regex.test(word)
+    },
+    getOriginalWord(word: string) {
+      const regex = /\[#ORIGINAL_(\w+)\]/
+      const match = word.match(regex)
+      return match && match.at(1) ? match.at(1) : undefined
     }
   }
 }
@@ -42,9 +63,6 @@ export default {
 
 <template>
   <WelcomeItem>
-    <!-- <template #icon>
-      <DocumentationIcon />
-    </template> -->
     <template #heading><span class="text-violet-500">Enter Poem Text</span></template>
 
     <textarea
@@ -53,6 +71,19 @@ export default {
       v-model="text"
     ></textarea>
   </WelcomeItem>
+  <div
+    class="form-control w-full flex flex-row items-center justify-self-center justify-center content-center"
+  >
+    <span class="text-violet-500">REPLACE WITH: </span>
+    <label class="cursor-pointer label">
+      <span class="label-text">Synonyms</span>
+      <input type="checkbox" v-model="replacement.ml" class="checkbox checkbox-primary" />
+    </label>
+    <label class="cursor-pointer label">
+      <span class="label-text">Related Words</span>
+      <input type="checkbox" v-model="replacement.rel_trg" class="checkbox checkbox-primary" />
+    </label>
+  </div>
   <div class="w-full flex flex-row justify-self-center justify-center content-center">
     <button v-if="!loading" class="btn btn-primary" @click="callApi">Generate Variation</button>
     <button v-else class="btn btn-disabled bg-primary text-white">
@@ -79,8 +110,17 @@ export default {
       <DocumentationIcon />
     </template> -->
     <template #heading><span class="text-violet-500">Generated Variation</span></template>
-
-    {{ variation }}
+    <template v-for="(word, idx) in variation" :item="word" :index="idx">
+      <span
+        v-if="isReplacedWord(word)"
+        class="underline text-green-400 tooltip tooltip-success"
+        :data-tip="getOriginalWord(word)"
+      >
+        {{ `${word.split('[#ORIGINAL_')[0]}` }}
+      </span>
+      <span v-else class="no-underline">{{ word }}</span>
+      {{ ' ' }}
+    </template>
   </WelcomeItem>
   <!-- 
   <WelcomeItem>
