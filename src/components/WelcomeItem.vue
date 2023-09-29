@@ -1,8 +1,8 @@
 <template>
   <div class="item">
-    <i>
+    <!-- <i>
       <slot name="icon"></slot>
-    </i>
+    </i> -->
     <div class="details">
       <h3>
         <slot name="heading"></slot>
@@ -57,14 +57,14 @@ h3 {
     height: 50px;
   }
 
-  .item:before {
+  /* .item:before {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
     left: 0;
     bottom: calc(50% + 25px);
     height: calc(50% - 25px);
-  }
+  } */
 
   .item:after {
     content: ' ';

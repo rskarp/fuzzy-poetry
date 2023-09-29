@@ -2,7 +2,10 @@ import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
-
+export enum ReplacementType {
+  MEANS_LIKE = "MEANS_LIKE",
+  TRIGGERED_BY = "TRIGGERED_BY"
+}
 
 
 

@@ -17,7 +17,7 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header> -->
 
-  <div class="drawer">
+  <div class="drawer wrapper">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
       <!-- Navbar -->
@@ -47,16 +47,27 @@ import HelloWorld from './components/HelloWorld.vue'
                 <!-- Navbar menu content here -->
 
                 <li><RouterLink to="/">Home</RouterLink></li>
-                <li><RouterLink to="/about">About</RouterLink></li>
+                <li>
+                  <span>About</span>
+                  <ul class="text-pink-400">
+                    <div class="bg-base-300 w-40 p-1 flex flex-col">
+                      <RouterLink to="/overview">Project Overview</RouterLink>
+                      <RouterLink to="/context">Context</RouterLink>
+                      <RouterLink to="/contributors">Contributors</RouterLink>
+                    </div>
+                  </ul>
+                </li>
                 <li><RouterLink to="/contact">Contact</RouterLink></li>
-                <li><RouterLink to="/how-it-works">How It Works</RouterLink></li>
+                <!-- <li><RouterLink to="/how-it-works">How It Works</RouterLink></li> -->
               </ul>
             </nav>
           </div>
         </div>
       </header>
       <!-- Page content here -->
-      <RouterView />
+      <div id="page-content">
+        <RouterView />
+      </div>
     </div>
     <div class="drawer-side">
       <label for="my-drawer-3" class="drawer-overlay"></label>
@@ -65,9 +76,18 @@ import HelloWorld from './components/HelloWorld.vue'
         <!-- Sidebar content here -->
         <nav>
           <li><RouterLink to="/">Home</RouterLink></li>
-          <li><RouterLink to="/about">About</RouterLink></li>
+          <li>
+            <span>About</span>
+            <ul class="text-pink-400">
+              <div class="w-40 p-1 ml-6 flex flex-col">
+                <RouterLink to="/overview">Project Overview</RouterLink>
+                <RouterLink to="/context">Context</RouterLink>
+                <RouterLink to="/contributors">Contributors</RouterLink>
+              </div>
+            </ul>
+          </li>
           <li><RouterLink to="/contact">Contact</RouterLink></li>
-          <li><RouterLink to="/how-it-works">How It Works</RouterLink></li>
+          <!-- <li><RouterLink to="/how-it-works">How It Works</RouterLink></li> -->
         </nav>
       </ul>
     </div>
@@ -75,7 +95,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <footer class="footer footer-center p-4 bg-base-300 text-base-content">
     <div>
-      <p>Copyright © 2023 - All right reserved by Fuzzy Poetry Project</p>
+      <p>Copyright © 2023 - All rights reserved by Fuzzy Poetry Project</p>
     </div>
   </footer>
 </template>
@@ -84,6 +104,13 @@ import HelloWorld from './components/HelloWorld.vue'
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Beastly&display=swap');
 header {
   font-family: 'Rubik Beastly', cursive;
+}
+.wrapper {
+  height: 100%;
+  overflow: auto;
+}
+#page-content {
+  padding: 1rem 2rem;
 }
 /* header {
   line-height: 1.5;

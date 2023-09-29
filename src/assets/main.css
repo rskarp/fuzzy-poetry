@@ -35,7 +35,11 @@
       /* display: grid; */
       /* grid-template-columns: 1fr 1fr; */
       width: 100%;
-      padding: 0 2rem;
+      padding: 0;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
   }
 }
