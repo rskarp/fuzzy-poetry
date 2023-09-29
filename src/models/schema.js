@@ -67,7 +67,15 @@ export const schema = {
             ]
         }
     },
-    "enums": {},
+    "enums": {
+        "ReplacementType": {
+            "name": "ReplacementType",
+            "values": [
+                "MEANS_LIKE",
+                "TRIGGERED_BY"
+            ]
+        }
+    },
     "nonModels": {},
     "codegenVersion": "3.4.3",
     "version": "b287436f04746c5f65f2a6d70e6559a4"

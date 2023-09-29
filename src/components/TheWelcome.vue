@@ -63,7 +63,7 @@ export default {
 
 <template>
   <WelcomeItem>
-    <template #heading><span class="text-violet-500">Enter Poem Text</span></template>
+    <template #heading><span class="text-violet-500 text-2xl">Enter Poem Text</span></template>
 
     <textarea
       class="textarea textarea-bordered textarea-lg w-full"
@@ -109,7 +109,7 @@ export default {
     <!-- <template #icon>
       <DocumentationIcon />
     </template> -->
-    <template #heading><span class="text-violet-500">Generated Variation</span></template>
+    <template #heading><span class="text-violet-500 text-2xl">Generated Variation</span></template>
     <template v-for="(word, idx) in variation" :item="word" :index="idx">
       <span
         v-if="isReplacedWord(word)"
