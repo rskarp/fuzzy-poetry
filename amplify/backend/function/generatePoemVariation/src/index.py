@@ -93,7 +93,7 @@ def get_candidates(token, replacement_types, max_results=50):
     return [o for o in options if 'tags' in o and nltk_to_datamusePOS(token[1]) in o['tags']]
 
 
-def createPoemVariation_old(text, replacement_types):
+def createPoemVariation(text, replacement_types):
     tokens, content_tokens = get_tokens(text)
 
     # replaceRandomWords
@@ -127,7 +127,7 @@ def createPoemVariation_old(text, replacement_types):
     return poem
 
 
-def createPoemVariation(text, replacement_types=['ml']):
+def createPoemVariation_old(text, replacement_types=['ml']):
     nVars = 1
     tokens, content_tokens = get_tokens(text)
     replacements = [replacementEnum2Abbreviation[rt]
