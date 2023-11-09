@@ -15,11 +15,11 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-76325357314957474956-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-34335747576133527635-build.zip"
         },
         "fuzzypoetrypython39nltk": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/fuzzypoetrypython39nltk-LambdaLayerVersion09d0233d-build.zip"
+          "s3Key": "amplify-builds/fuzzypoetrypython39nltk-LambdaLayerVersion743078ee-build.zip"
         },
         "createPoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
@@ -47,7 +47,15 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-staging-213921-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-32444a67784c5250616a-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-4c68454c37336f532b35-build.zip"
+        },
+        "createPoemVariation": {
+          "deploymentBucketName": "amplify-fuzzypoetry-staging-213921-deployment",
+          "s3Key": "amplify-builds/createPoemVariation-7332344a4d4a367a4d44-build.zip"
+        },
+        "fuzzypoetrypython39nltk": {
+          "deploymentBucketName": "amplify-fuzzypoetry-staging-213921-deployment",
+          "s3Key": "amplify-builds/fuzzypoetrypython39nltk-LambdaLayerVersion196570c6-build.zip"
         }
       },
       "api": {
