@@ -149,13 +149,19 @@ def createPoemVariation(text, replacement_types=['ml']):
                 newWord = f'{token.text}[#ORIGINAL_{token.text}]'
 
         poem[idx] = f'{newWord}{token.whitespace_}'
+        return poem[idx]
+
     print(f'num tokens: {len(tokens)}')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    print(f'tokens: {tokens}')
+    with concurrent.futures.ThreadPoolExecutor() as executor:
         pool = executor.map(lambda a: _processToken(*a),
                             list(enumerate(tokens)))
+        for res in pool:
+            print(res)
 
     print(f'len poem: {len(poem)}')
     poem = ''.join(poem).replace('\n\n', '\n')
+    print(f'poem: {poem}')
     return poem
 
 
