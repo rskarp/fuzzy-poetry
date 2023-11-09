@@ -128,41 +128,35 @@ def createPoemVariation_old(text, replacement_types):
 
 
 def createPoemVariation(text, replacement_types=['ml']):
-    nVars = 1
     tokens, content_tokens = get_tokens(text)
     replacements = [replacementEnum2Abbreviation[rt]
                     for rt in replacement_types]
     max_options = 50
     percent_to_replace = 100
     number_to_replace = int(len(content_tokens) * (percent_to_replace / 100))
-    poems = [['']*len(tokens) for _ in range(nVars)]
+    poem = ['']*len(tokens)
     # choose number_to_replace tokens to replace
     to_replace = sample(content_tokens, number_to_replace)
 
     def _processToken(idx, token):
-        newWords = [token.text for _ in range(nVars)]
+        newWord = token.text
         if token in to_replace:
             options = get_candidates(token, replacements, max_options)
             if len(options) > 0:
-                chosenWords = sample(options, min([nVars, len(options)]))
-                numChosen = len(chosenWords)
-                newWords = [
-                    f'{chosenWords[i%numChosen]["word"]}[#ORIGINAL_{token.text}]' for i in range(nVars)]
+                chosenWords = sample(options, 1)
+                newWord = f'{chosenWords[0]["word"]}[#ORIGINAL_{token.text}]'
             else:
-                newWords = [
-                    f'{token.text}[#ORIGINAL_{token.text}]' for i in range(nVars)]
+                newWord = f'{token.text}[#ORIGINAL_{token.text}]'
 
-        for p in range(nVars):
-            poems[p][idx] = f'{newWords[p]}{token.whitespace_}'
+        poem[idx] = f'{newWord}{token.whitespace_}'
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         pool = executor.map(lambda a: _processToken(*a),
                             list(enumerate(tokens)))
 
-    for p in range(nVars):
-        poems[p] = ''.join(poems[p]).replace('\n\n', '\n')
+    poem = ''.join(poem).replace('\n\n', '\n')
 
-    return poems[0]
+    return poem
 
 
 def handler(event, context):
