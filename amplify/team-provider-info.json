@@ -16,7 +16,8 @@
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
           "s3Key": "amplify-builds/generatePoemVariation-65657770305747524e6d-build.zip"
-        }
+        },
+        "generateCombinedVariation": {}
       },
       "api": {
         "FuzzyPoetry": {}

@@ -23,6 +23,12 @@
     }
   },
   "function": {
+    "generateCombinedVariation": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "generatePoemVariation": {
       "build": true,
       "dependsOn": [],

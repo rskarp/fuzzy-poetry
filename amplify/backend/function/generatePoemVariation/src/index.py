@@ -159,8 +159,8 @@ def createPoemVariation(text, replacement_types=['ml']):
 
 
 def handler(event, context):
-    print('received event:')
-    print(event)
+    print(f'received event: {event}')
+
     text = event['arguments']['originalPoem']
     replacement_types = event['arguments']['replacementTypes']
     variation = createPoemVariation(text, replacement_types)

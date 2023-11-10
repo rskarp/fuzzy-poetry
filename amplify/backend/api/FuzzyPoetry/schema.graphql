@@ -14,3 +14,9 @@ type Mutation {
     @auth(rules: [{ allow: public }])
     @function(name: "generatePoemVariation-${env}")
 }
+
+type Mutation {
+  generateCombinedVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
+    @auth(rules: [{ allow: public }])
+    @function(name: "generateCombinedVariation-${env}")
+}
