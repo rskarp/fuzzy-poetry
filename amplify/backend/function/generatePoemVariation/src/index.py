@@ -22,7 +22,11 @@ TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
 
 replacementEnum2Abbreviation = {
     'MEANS_LIKE': 'ml',
-    'TRIGGERED_BY': 'rel_trg'
+    'TRIGGERED_BY': 'rel_trg',
+    'ANAGRAM': 'ana',
+    'SPELLED_LIKE': 'sp',
+    'CONSONANT_MATCH': 'rel_cns',
+    'HOMOPHONE': 'rel_hom'
 }
 # def get_tokens_spacy(text):
 #     # nlp = en_core_web_md.load()

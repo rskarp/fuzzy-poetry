@@ -3,42 +3,26 @@ import json
 import boto3
 import os
 from uuid import uuid4
-# import spacy
 import datamuse
 import nltk
 from random import sample
-# # import en_core_web_md
 from string import punctuation
 import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
-# nltk.download('averaged_perceptron_tagger')
-# nltk.download('punkt')
-# nltk.download('universal_tagset')
 
 client = boto3.client("dynamodb", 'us-east-1')
-# os.environ.get("STORAGE_POEMVARIATIONTABLE_NAME")
 # TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
 TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
 
 replacementEnum2Abbreviation = {
     'MEANS_LIKE': 'ml',
-    'TRIGGERED_BY': 'rel_trg'
+    'TRIGGERED_BY': 'rel_trg',
+    'ANAGRAM': 'ana',
+    'SPELLED_LIKE': 'sp',
+    'CONSONANT_MATCH': 'rel_cns',
+    'HOMOPHONE': 'rel_hom'
 }
-# def get_tokens_spacy(text):
-#     # nlp = en_core_web_md.load()
-#     try:
-#         nlp = spacy.load('en_core_web_md')
-#     except OSError:
-#         from spacy.cli import download
-#         download('en_core_web_md')
-#         nlp = spacy.load('en_core_web_md')
-#     doc = nlp(text)
-#     tokens = [token for token in doc]
-#     content_tokens = [token for token in doc if token in [
-#         'NOUN', 'VERB', 'ADJ', 'ADV']]
-
-#     return tokens, content_tokens
 
 
 def get_tokens(text):
@@ -49,19 +33,6 @@ def get_tokens(text):
     content_tokens = [token for token in tokens if token[1] in [
         'NOUN', 'VERB', 'ADJ', 'ADV']]
     return tokens, content_tokens
-
-
-# def spacyPOS_to_datamusePOS(pos):
-#     if pos == 'NOUN':
-#         return 'n'
-#     elif pos == 'VERB':
-#         return 'v'
-#     elif pos == 'ADJ':
-#         return 'adj'
-#     elif pos == 'ADV':
-#         return 'adv'
-#     else:
-#         return ''
 
 
 def nltk_to_datamusePOS(pos):
@@ -176,18 +147,3 @@ def handler(event, context):
 if __name__ == '__main__':
     print(createPoemVariation(
         '''Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleece was white as snow''', ['MEANS_LIKE']))
-
-
-def handler(event, context):
-    print('received event:')
-    print(event)
-
-    return {
-        'statusCode': 200,
-        'headers': {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        'body': json.dumps('Hello from your new Amplify Python lambda!')
-    }

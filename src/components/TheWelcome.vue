@@ -16,7 +16,14 @@ export default {
       text: '',
       variation: [''],
       loading: false,
-      replacement: { ml: true, rel_trg: false }
+      replacement: {
+        ml: true,
+        rel_trg: false,
+        ana: false,
+        sp: false,
+        rel_cns: false,
+        rel_hom: false
+      }
     }
   },
   methods: {
@@ -28,7 +35,11 @@ export default {
       }
       const replacementTypes = [
         ...(this.replacement.ml ? [ReplacementType.MEANS_LIKE] : []),
-        ...(this.replacement.rel_trg ? [ReplacementType.TRIGGERED_BY] : [])
+        ...(this.replacement.rel_trg ? [ReplacementType.TRIGGERED_BY] : []),
+        ...(this.replacement.ana ? [ReplacementType.ANAGRAM] : []),
+        ...(this.replacement.sp ? [ReplacementType.SPELLED_LIKE] : []),
+        ...(this.replacement.rel_cns ? [ReplacementType.CONSONANT_MATCH] : []),
+        ...(this.replacement.rel_hom ? [ReplacementType.HOMOPHONE] : [])
       ]
       API.graphql<GraphQLQuery<GeneratePoemVariationMutation>>({
         query: mutations.generatePoemVariation,
@@ -38,7 +49,7 @@ export default {
           this.variation = this.generateWordsList(result.data?.generatePoemVariation ?? '')
         })
         .catch((result) => {
-          this.variation = [`An error occurred. ${JSON.stringify(result)}`]
+          this.variation = [`An error occurred. ${result.errors?.at(0)?.message}`]
         })
         .finally(() => {
           this.loading = false
@@ -76,12 +87,28 @@ export default {
   >
     <span class="text-violet-500">REPLACE WITH: </span>
     <label class="cursor-pointer label">
-      <span class="label-text">Synonyms</span>
+      <span class="label-text p-1">Synonyms</span>
       <input type="checkbox" v-model="replacement.ml" class="checkbox checkbox-primary" />
     </label>
     <label class="cursor-pointer label">
-      <span class="label-text">Related Words</span>
+      <span class="label-text p-1">Related Words</span>
       <input type="checkbox" v-model="replacement.rel_trg" class="checkbox checkbox-primary" />
+    </label>
+    <label class="cursor-pointer label">
+      <span class="label-text p-1">Anagrams</span>
+      <input type="checkbox" v-model="replacement.ana" class="checkbox checkbox-primary" />
+    </label>
+    <label class="cursor-pointer label">
+      <span class="label-text p-1">Similarly Spelled Words</span>
+      <input type="checkbox" v-model="replacement.sp" class="checkbox checkbox-primary" />
+    </label>
+    <label class="cursor-pointer label">
+      <span class="label-text p-1">Consonant Match</span>
+      <input type="checkbox" v-model="replacement.rel_cns" class="checkbox checkbox-primary" />
+    </label>
+    <label class="cursor-pointer label">
+      <span class="label-text p-1">Homophones</span>
+      <input type="checkbox" v-model="replacement.rel_hom" class="checkbox checkbox-primary" />
     </label>
   </div>
   <div class="w-full flex flex-row justify-self-center justify-center content-center">
@@ -106,9 +133,6 @@ export default {
     </button>
   </div>
   <WelcomeItem>
-    <!-- <template #icon>
-      <DocumentationIcon />
-    </template> -->
     <template #heading><span class="text-violet-500 text-2xl">Generated Variation</span></template>
     <template v-for="(word, idx) in variation" :item="word" :index="idx">
       <span
