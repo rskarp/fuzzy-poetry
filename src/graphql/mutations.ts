@@ -64,3 +64,14 @@ export const generatePoemVariation = /* GraphQL */ `
     )
   }
 `;
+export const generateCombinedVariation = /* GraphQL */ `
+  mutation GenerateCombinedVariation(
+    $originalPoem: String
+    $replacementTypes: [ReplacementType]
+  ) {
+    generateCombinedVariation(
+      originalPoem: $originalPoem
+      replacementTypes: $replacementTypes
+    )
+  }
+`;

@@ -22,7 +22,11 @@ TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
 
 replacementEnum2Abbreviation = {
     'MEANS_LIKE': 'ml',
-    'TRIGGERED_BY': 'rel_trg'
+    'TRIGGERED_BY': 'rel_trg',
+    'ANAGRAM': 'ana',
+    'SPELLED_LIKE': 'sp',
+    'CONSONANT_MATCH': 'rel_cns',
+    'HOMOPHONE': 'rel_hom'
 }
 # def get_tokens_spacy(text):
 #     # nlp = en_core_web_md.load()
@@ -159,8 +163,8 @@ def createPoemVariation(text, replacement_types=['ml']):
 
 
 def handler(event, context):
-    print('received event:')
-    print(event)
+    print(f'received event: {event}')
+
     text = event['arguments']['originalPoem']
     replacement_types = event['arguments']['replacementTypes']
     variation = createPoemVariation(text, replacement_types)

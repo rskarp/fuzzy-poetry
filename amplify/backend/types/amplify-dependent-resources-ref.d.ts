@@ -7,15 +7,12 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "createPoemVariation": {
+    "generateCombinedVariation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
-    },
-    "fuzzypoetrypython39nltk": {
-      "Arn": "string"
     },
     "generatePoemVariation": {
       "Arn": "string",
