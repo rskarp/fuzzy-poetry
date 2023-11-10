@@ -5,13 +5,15 @@ export default {
       firstName: '',
       lastName: '',
       subject: '',
-      emailBody: ''
+      emailBody: '',
+      emailAddress: ''
     }
   },
   methods: {
     callApi(event: MouseEvent) {
       this.firstName = ''
       this.lastName = ''
+      this.emailAddress = ''
       this.subject = ''
       this.emailBody = ''
       console.log('Sending email...')
@@ -36,6 +38,15 @@ export default {
     <label class="label flex-row justify-start">
       <span class="label-text px-2">Last Name: </span>
       <input type="text" class="input input-bordered input-xs" v-model="lastName" required />
+    </label>
+    <label class="label flex-row justify-start">
+      <span class="label-text px-2">Email Address: </span>
+      <input
+        type="text"
+        class="input input-bordered w-full input-xs"
+        v-model="emailAddress"
+        required
+      />
     </label>
     <label class="label flex-row justify-start">
       <span class="label-text px-2">Subject: </span>

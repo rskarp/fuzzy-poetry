@@ -4,7 +4,11 @@ import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 export enum ReplacementType {
   MEANS_LIKE = "MEANS_LIKE",
-  TRIGGERED_BY = "TRIGGERED_BY"
+  TRIGGERED_BY = "TRIGGERED_BY",
+  ANAGRAM = "ANAGRAM",
+  SPELLED_LIKE = "SPELLED_LIKE",
+  CONSONANT_MATCH = "CONSONANT_MATCH",
+  HOMOPHONE = "HOMOPHONE"
 }
 
 

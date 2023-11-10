@@ -30,7 +30,7 @@ export default {
     callApi(event: MouseEvent) {
       this.loading = true
       this.variation = []
-      if (!this.replacement.ml && !this.replacement.rel_trg) {
+      if (!Object.values(this.replacement).some((r) => r)) {
         this.replacement.ml = true
       }
       const replacementTypes = [
@@ -60,11 +60,11 @@ export default {
       return words ?? []
     },
     isReplacedWord(word: string) {
-      const regex = /\b(\w+)\[#ORIGINAL_\w+\]/g
+      const regex = /\b(\w+)\[#ORIGINAL_.+\]/g
       return regex.test(word)
     },
     getOriginalWord(word: string) {
-      const regex = /\[#ORIGINAL_(\w+)\]/
+      const regex = /\[#ORIGINAL_(.+)\]/
       const match = word.match(regex)
       return match && match.at(1) ? match.at(1) : undefined
     }

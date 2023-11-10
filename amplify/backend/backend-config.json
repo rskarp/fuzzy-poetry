@@ -37,6 +37,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_generateCombinedVariation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "generateCombinedVariation"
+        }
+      ]
+    },
+    "AMPLIFY_function_generateCombinedVariation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "generateCombinedVariation"
+        }
+      ]
+    },
     "AMPLIFY_function_generatePoemVariation_deploymentBucketName": {
       "usedBy": [
         {

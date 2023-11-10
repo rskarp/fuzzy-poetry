@@ -72,7 +72,11 @@ export const schema = {
             "name": "ReplacementType",
             "values": [
                 "MEANS_LIKE",
-                "TRIGGERED_BY"
+                "TRIGGERED_BY",
+                "ANAGRAM",
+                "SPELLED_LIKE",
+                "CONSONANT_MATCH",
+                "HOMOPHONE"
             ]
         }
     },
