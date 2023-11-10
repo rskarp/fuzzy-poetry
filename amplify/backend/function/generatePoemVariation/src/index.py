@@ -17,8 +17,8 @@ nltk.data.path.append('./nltk_data')
 
 client = boto3.client("dynamodb", 'us-east-1')
 # os.environ.get("STORAGE_POEMVARIATIONTABLE_NAME")
-# TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
-TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
+TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
+# TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
 
 replacementEnum2Abbreviation = {
     'MEANS_LIKE': 'ml',
