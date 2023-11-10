@@ -15,15 +15,7 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-34335747576133527635-build.zip"
-        },
-        "fuzzypoetrypython39nltk": {
-          "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/fuzzypoetrypython39nltk-LambdaLayerVersion743078ee-build.zip"
-        },
-        "createPoemVariation": {
-          "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/createPoemVariation-7332344a4d4a367a4d44-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-65657770305747524e6d-build.zip"
         }
       },
       "api": {
