@@ -1,6 +1,10 @@
 enum ReplacementType {
   MEANS_LIKE
   TRIGGERED_BY
+  ANAGRAM
+  SPELLED_LIKE
+  CONSONANT_MATCH
+  HOMOPHONE
 }
 
 type PoemVariation @model @auth(rules: [{ allow: public }]) {
@@ -13,9 +17,7 @@ type Mutation {
   generatePoemVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
     @auth(rules: [{ allow: public }])
     @function(name: "generatePoemVariation-${env}")
-}
 
-type Mutation {
   generateCombinedVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
     @auth(rules: [{ allow: public }])
     @function(name: "generateCombinedVariation-${env}")

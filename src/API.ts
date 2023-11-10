@@ -84,6 +84,10 @@ export type DeletePoemVariationInput = {
 export enum ReplacementType {
   MEANS_LIKE = "MEANS_LIKE",
   TRIGGERED_BY = "TRIGGERED_BY",
+  ANAGRAM = "ANAGRAM",
+  SPELLED_LIKE = "SPELLED_LIKE",
+  CONSONANT_MATCH = "CONSONANT_MATCH",
+  HOMOPHONE = "HOMOPHONE",
 }
 
 
@@ -221,6 +225,15 @@ export type GeneratePoemVariationMutationVariables = {
 
 export type GeneratePoemVariationMutation = {
   generatePoemVariation?: string | null,
+};
+
+export type GenerateCombinedVariationMutationVariables = {
+  originalPoem?: string | null,
+  replacementTypes?: Array< ReplacementType | null > | null,
+};
+
+export type GenerateCombinedVariationMutation = {
+  generateCombinedVariation?: string | null,
 };
 
 export type GetPoemVariationQueryVariables = {
