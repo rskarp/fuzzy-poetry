@@ -15,11 +15,11 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-476537623778715a766f-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-7445773672314e386f53-build.zip"
         },
         "generateCombinedVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generateCombinedVariation-4335582b534465774e32-build.zip"
+          "s3Key": "amplify-builds/generateCombinedVariation-2b6c354a6c564b614e78-build.zip"
         }
       },
       "api": {

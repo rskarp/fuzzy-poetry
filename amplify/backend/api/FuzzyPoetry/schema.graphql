@@ -13,12 +13,22 @@ type PoemVariation @model @auth(rules: [{ allow: public }]) {
   variation_text: String
 }
 
+input ReplacementTypeCounts {
+  means_like: Int
+  triggered_by: Int
+  anagram: Int
+  spelled_like: Int
+  consonant_match: Int
+  homophone: Int
+}
+
 type Mutation {
   generatePoemVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
     @auth(rules: [{ allow: public }])
     @function(name: "generatePoemVariation-${env}")
 
-  generateCombinedVariation(originalPoem: String, replacementTypes: [ReplacementType]): String
-    @auth(rules: [{ allow: public }])
-    @function(name: "generateCombinedVariation-${env}")
+  generateCombinedVariation(
+    originalPoem: String
+    replacementTypeCounts: ReplacementTypeCounts
+  ): String @auth(rules: [{ allow: public }]) @function(name: "generateCombinedVariation-${env}")
 }

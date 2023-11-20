@@ -91,6 +91,15 @@ export enum ReplacementType {
 }
 
 
+export type ReplacementTypeCounts = {
+  means_like?: number | null,
+  triggered_by?: number | null,
+  anagram?: number | null,
+  spelled_like?: number | null,
+  consonant_match?: number | null,
+  homophone?: number | null,
+};
+
 export type ModelPoemVariationFilterInput = {
   id?: ModelIDInput | null,
   original_text?: ModelStringInput | null,
@@ -229,7 +238,7 @@ export type GeneratePoemVariationMutation = {
 
 export type GenerateCombinedVariationMutationVariables = {
   originalPoem?: string | null,
-  replacementTypes?: Array< ReplacementType | null > | null,
+  replacementTypeCounts?: ReplacementTypeCounts | null,
 };
 
 export type GenerateCombinedVariationMutation = {
