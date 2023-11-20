@@ -16,6 +16,7 @@ export default {
       text: '',
       variation: [''],
       loading: false,
+      tooManyVars: false,
       replacement: {
         ml: 1,
         rel_trg: 0,
@@ -28,10 +29,15 @@ export default {
   },
   methods: {
     callApi(event: MouseEvent) {
+      this.tooManyVars = false
       this.loading = true
       this.variation = []
       if (!Object.values(this.replacement).some((r) => r)) {
         this.replacement.ml = 1
+      } else if (Object.values(this.replacement).reduce((a, b) => a + b, 0) > 60) {
+        this.tooManyVars = true
+        this.loading = false
+        return
       }
       const replacementTypeCounts: ReplacementTypeCounts = {
         means_like: this.replacement.ml,
@@ -147,6 +153,10 @@ export default {
       />
     </label>
   </div>
+
+  <span v-if="tooManyVars" class="p-1 w-full flex justify-center text-red-500"
+    >The total number of variations cannot exceed 60.</span
+  >
   <div class="w-full flex flex-row justify-self-center justify-center content-center">
     <button v-if="!loading" class="btn btn-primary" @click="callApi">Generate Variation</button>
     <button v-else class="btn btn-disabled bg-primary text-white">
@@ -169,7 +179,9 @@ export default {
     </button>
   </div>
   <WelcomeItem>
-    <template #heading><span class="text-violet-500 text-2xl">Generated Variation</span></template>
+    <template v-if="variation.length > 1" #heading
+      ><span class="text-violet-500 text-2xl">Generated Variation</span></template
+    >
     <template v-for="(word, idx) in variation" :item="word" :index="idx">
       <span
         v-if="isReplacedWord(word)"

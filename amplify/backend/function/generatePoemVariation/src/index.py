@@ -16,9 +16,6 @@ nltk.data.path.append('./nltk_data')
 # nltk.download('universal_tagset')
 
 client = boto3.client("dynamodb", 'us-east-1')
-# os.environ.get("STORAGE_POEMVARIATIONTABLE_NAME")
-# TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
-TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
 
 replacementEnum2Abbreviation = {

@@ -133,7 +133,9 @@ export default {
     </button>
   </div>
   <WelcomeItem>
-    <template #heading><span class="text-violet-500 text-2xl">Generated Variation</span></template>
+    <template v-if="variation.length > 1" #heading
+      ><span class="text-violet-500 text-2xl">Generated Variation</span></template
+    >
     <template v-for="(word, idx) in variation" :item="word" :index="idx">
       <span
         v-if="isReplacedWord(word)"
