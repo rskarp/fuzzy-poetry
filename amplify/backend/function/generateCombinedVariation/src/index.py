@@ -3,7 +3,10 @@ import json
 import boto3
 import os
 from uuid import uuid4
+import openai as ai
 import datamuse
+import re
+import os
 import nltk
 from random import sample
 from string import punctuation
@@ -14,15 +17,9 @@ nltk.data.path.append('./nltk_data')
 client = boto3.client("dynamodb", 'us-east-1')
 # TABLE = 'PoemVariation-spjf5e27hnh5bihsf7agym7vva-staging'
 TABLE = 'PoemVariation-kvrbuteftvd5xofbsmnb4qb2lm-develop'
-
-replacementEnum2Abbreviation = {
-    'MEANS_LIKE': 'ml',
-    'TRIGGERED_BY': 'rel_trg',
-    'ANAGRAM': 'ana',
-    'SPELLED_LIKE': 'sp',
-    'CONSONANT_MATCH': 'rel_cns',
-    'HOMOPHONE': 'rel_hom'
-}
+TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
+ai.organization = os.environ['OPENAI_ORGANIZATION']
+ai.api_key = os.environ['OPENAI_API_KEY']
 
 
 def get_tokens(text):
@@ -65,68 +62,122 @@ def get_candidates(token, replacement_types, max_results=50):
     return [o for o in options if 'tags' in o and nltk_to_datamusePOS(token[1]) in o['tags']]
 
 
-def createPoemVariation_old(text, replacement_types):
+def generateNVariations(text, nVars, replacement_types=['ml']):
     tokens, content_tokens = get_tokens(text)
-
-    # replaceRandomWords
-    replacements = [replacementEnum2Abbreviation[rt]
-                    for rt in replacement_types]
     max_options = 50
     percent_to_replace = 100
     number_to_replace = int(len(content_tokens) * (percent_to_replace / 100))
-    out_words = []
-    # choose number_to_replace tokens to replace
-    to_replace = sample(content_tokens, number_to_replace)
-    print(f'Proccessing {len(tokens)} tokens')
-    for i, token in enumerate(tokens):
-        newWord = token[0]
-        if token in to_replace:
-            options = get_candidates(token, replacements, max_options)
-            # print(f'Num candidates: {len(options)}')
-            if len(options) <= 1:
-                print(
-                    f'Num candidates: {len(options)}, word: {token[0]}, type: {",".join(replacements)}')
-            if len(options) > 0:
-                # print(len(options))
-                chosen = sample(options, 1)
-                newWord = f'{chosen[0]["word"]}[#ORIGINAL_{token[0]}]'
-            else:
-                newWord = f'{token[0]}[#ORIGINAL_{token[0]}]'
-
-        out_words.append(f'{newWord} ')
-
-    poem = ''.join(out_words).replace('\n\n', '\n')
-    return poem
-
-
-def createPoemVariation(text, replacement_types=['ml']):
-    tokens, content_tokens = get_tokens(text)
-    replacements = [replacementEnum2Abbreviation[rt]
-                    for rt in replacement_types]
-    max_options = 50
-    percent_to_replace = 100
-    number_to_replace = int(len(content_tokens) * (percent_to_replace / 100))
-    poem = ['']*len(tokens)
+    poems = [['']*len(tokens) for _ in range(nVars)]
     # choose number_to_replace tokens to replace
     to_replace = sample(content_tokens, number_to_replace)
 
     def _processToken(idx, token):
-        newWord = token[0]
+        newWords = [token[0] for _ in range(nVars)]
         if token in to_replace:
-            options = get_candidates(token, replacements, max_options)
+            options = get_candidates(token, replacement_types, max_options)
             if len(options) > 0:
-                chosenWords = sample(options, 1)
-                newWord = f'{chosenWords[0]["word"]}[#ORIGINAL_{token[0]}]'
+                chosenWords = sample(options, min([nVars, len(options)]))
+                numChosen = len(chosenWords)
+                newWords = [
+                    f'{chosenWords[i%numChosen]["word"]}[#ORIGINAL_{token[0]}]' for i in range(nVars)]
             else:
-                newWord = f'{token[0]}[#ORIGINAL_{token[0]}]'
+                newWords = [
+                    f'{token[0]}[#ORIGINAL_{token[0]}]' for i in range(nVars)]
 
-        poem[idx] = f'{newWord} '
+        for p in range(nVars):
+            poems[p][idx] = f'{newWords[p]} '
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         pool = executor.map(lambda a: _processToken(*a),
                             list(enumerate(tokens)))
 
-    poem = ''.join(poem).replace('\n\n', '\n')
+    for p in range(nVars):
+        poems[p] = ''.join(poems[p]).replace('\n\n', '\n')
+
+    return poems
+
+
+def getLineCategory(original, generated):
+    # Get label for given poem line variation using fineTune2
+    FINE_TUNED_MODEL_3 = 'curie:ft-personal-2023-09-01-03-25-31'  # 5000 training
+    PROMPT = f'<original>{original}</original> : <generated>{generated}</generated>\n\n###\n\n'
+    res = ai.Completion.create(
+        model=FINE_TUNED_MODEL_3,
+        prompt=PROMPT)
+    category = res['choices'][0]['text'].split("Line\n", 1)[0]
+    # print(f'{category}: {generated}')
+    return category
+
+
+def createPoemVariation(text, replacementTypeCounts):
+    nSyn = replacementTypeCounts["means_like"]
+    nRel = replacementTypeCounts["triggered_by"]
+    nAna = replacementTypeCounts["anagram"]
+    nSp = replacementTypeCounts["spelled_like"]
+    nCns = replacementTypeCounts["consonant_match"]
+    nHom = replacementTypeCounts["homophone"]
+    totalNVars = nSyn+nRel+nAna+nSp+nCns+nHom
+
+    originalLines = [line.strip() for line in text.split('\n')]
+
+    args = [(text, nSyn, ['ml']),
+            (text, nRel, ['rel_trg']),
+            (text, nAna, ['ana']),
+            (text, nSp, ['sp']),
+            (text, nCns, ['rel_cns']),
+            (text, nHom, ['rel_hom'])]
+    poemVariations = []
+    # Generate variations for each of the replacement types in parallel
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        pool = executor.map(lambda a: generateNVariations(*a), args)
+        for res in pool:
+            for p in res:
+                lines = [line.strip() for line in p.split('\n')]
+                poemVariations.append(lines)
+
+    print(f'Combining {totalNVars} variations...')
+    newLines = ['']*len(originalLines)
+
+    # Generate the final best output line from the variation options for the given original line
+    def _processLine(idx, originalLine):
+        labels = [{}]*len(poemVariations)
+
+        # Get the category label (GOOD, MEDIOCRE, BAD) for a given line variation compared to the original
+        def _processLineVariation(variationIdx, originalLine, variation):
+            cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variation[idx]
+                               ).replace('"', "'") if idx < len(variation) else originalLine
+            label = getLineCategory(originalLine, cleanLine)
+            labels[variationIdx] = {'line': cleanLine, 'label': label}
+            # print(f'label: {label}')
+
+        # Get the label for each poem variation ion parallel
+        args = [(i, originalLine, variation)
+                for i, variation in enumerate(poemVariations)]
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            pool = executor.map(lambda a: _processLineVariation(*a), args)
+
+        # Find the good and mediocre labels
+        good_labels = list(
+            filter(lambda x: 'good' in x['label'].lower(), labels))
+        mediocre_labels = list(
+            filter(lambda x: 'mediocre' in x['label'].lower(), labels))
+        # Determine the final output line. Try random good label, then mediocre, or - placeholder
+        if len(good_labels) > 0:
+            newLine = sample(good_labels, 1)[0]['line']
+            newLines[idx] = newLine+'\n'
+        elif len(mediocre_labels) > 0:
+            newLine = sample(mediocre_labels, 1)[0]['line']
+            newLines[idx] = '[MEDIOCRE] '+newLine+'\n'
+        else:
+            newLines[idx] = '-\n'
+
+    # Generate each output line in parallel
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        pool = executor.map(lambda a: _processLine(
+            *a), list(enumerate(originalLines)))
+
+    # Combine all output lines into a final output variation
+    poem = '\n'+''.join(newLines)
     return poem
 
 
@@ -134,8 +185,8 @@ def handler(event, context):
     print(f'received event: {event}')
 
     text = event['arguments']['originalPoem']
-    replacement_types = event['arguments']['replacementTypes']
-    variation = createPoemVariation(text, replacement_types)
+    replacementTypeCounts = event['arguments']['replacementTypeCounts']
+    variation = createPoemVariation(text, replacementTypeCounts)
     client.put_item(TableName=TABLE, Item={
         'id': {'S': str(uuid4())},
         'original_text': {'S': text},
@@ -146,4 +197,11 @@ def handler(event, context):
 
 if __name__ == '__main__':
     print(createPoemVariation(
-        '''Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleece was white as snow''', ['MEANS_LIKE']))
+        '''Mary had a little lamb, little lamb, little lamb.\n Mary had a little lamb whose fleece was white as snow''', {
+            "means_like": 2,
+            "triggered_by": 2,
+            "anagram": 2,
+            "spelled_like": 2,
+            "consonant_match": 2,
+            "homophone": 2
+        }))
