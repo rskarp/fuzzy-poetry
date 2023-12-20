@@ -1,4 +1,5 @@
 import os
+import json
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
@@ -21,6 +22,7 @@ def handler(event, context):
         plain_text_content=emailBody)
     try:
         sg = SendGridAPIClient(sendGridKey)
-        return sg.send(message)
+        response = sg.send(message)
+        return json.loads(json.dumps(response, default=str))
     except Exception as e:
         raise e

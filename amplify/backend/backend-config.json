@@ -73,6 +73,22 @@
           "resourceName": "generatePoemVariation"
         }
       ]
+    },
+    "AMPLIFY_function_sendEmail_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendEmail"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendEmail_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendEmail"
+        }
+      ]
     }
   }
 }
