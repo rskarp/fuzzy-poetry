@@ -31,4 +31,11 @@ type Mutation {
     originalPoem: String
     replacementTypeCounts: ReplacementTypeCounts
   ): String @auth(rules: [{ allow: public }]) @function(name: "generateCombinedVariation-${env}")
+
+  sendEmail(
+    senderName: String
+    senderAddress: String
+    emailContent: String
+    emailSubject: String
+  ): String @auth(rules: [{ allow: public }]) @function(name: "sendEmail-${env}")
 }

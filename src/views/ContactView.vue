@@ -1,22 +1,49 @@
 <script lang="ts">
+import type { SendEmailMutation } from '@/API'
+import { API } from 'aws-amplify'
+import * as mutations from '../graphql/mutations'
+import { type GraphQLQuery } from '@aws-amplify/api'
+
 export default {
   data() {
     return {
-      firstName: '',
-      lastName: '',
+      fullName: '',
       subject: '',
       emailBody: '',
-      emailAddress: ''
+      emailAddress: '',
+      errorMessage: '',
+      loading: false
     }
   },
   methods: {
     callApi(event: MouseEvent) {
-      this.firstName = ''
-      this.lastName = ''
-      this.emailAddress = ''
-      this.subject = ''
-      this.emailBody = ''
-      console.log('Sending email...')
+      this.errorMessage = ''
+      if (!this.fullName || !this.emailAddress || !this.emailBody) {
+        this.errorMessage = 'Missing required Fields'
+        return
+      }
+
+      API.graphql<GraphQLQuery<SendEmailMutation>>({
+        query: mutations.sendEmail,
+        variables: {
+          senderName: this.fullName,
+          senderAddress: this.emailAddress,
+          emailSubject: this.subject,
+          emailContent: this.emailBody
+        }
+      })
+        .then((result) => {
+          this.fullName = ''
+          this.emailAddress = ''
+          this.subject = ''
+          this.emailBody = 'Sent!'
+        })
+        .catch((result) => {
+          this.emailBody = `An error occurred. ${result.errors?.at(0)?.message}`
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   }
 }
@@ -27,17 +54,13 @@ export default {
     <h1 class="text-violet-500 text-2xl">Contact Us</h1>
     <p>We would love to hear from you!</p>
     <label class="label flex-row justify-start">
-      <span class="label-text px-2">First Name: </span>
+      <span class="label-text px-2">Full Name: </span>
       <input
         type="text"
-        class="input input-bordered input-xs items-start"
-        v-model="firstName"
+        class="input input-bordered w-full input-xs items-start"
+        v-model="fullName"
         required
       />
-    </label>
-    <label class="label flex-row justify-start">
-      <span class="label-text px-2">Last Name: </span>
-      <input type="text" class="input input-bordered input-xs" v-model="lastName" required />
     </label>
     <label class="label flex-row justify-start">
       <span class="label-text px-2">Email Address: </span>
@@ -58,7 +81,26 @@ export default {
       v-model="emailBody"
       required
     ></textarea>
-    <button class="btn btn-primary" @click="callApi">Send</button>
+    <button v-if="!loading" class="btn btn-primary" @click="callApi">Send</button>
+    <button v-else class="btn btn-disabled bg-primary text-white">
+      <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+      Sending...
+    </button>
+    {{ errorMessage }}
   </div>
 </template>
 

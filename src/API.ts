@@ -245,6 +245,17 @@ export type GenerateCombinedVariationMutation = {
   generateCombinedVariation?: string | null,
 };
 
+export type SendEmailMutationVariables = {
+  senderName?: string | null,
+  senderAddress?: string | null,
+  emailContent?: string | null,
+  emailSubject?: string | null,
+};
+
+export type SendEmailMutation = {
+  sendEmail?: string | null,
+};
+
 export type GetPoemVariationQueryVariables = {
   id: string,
 };
