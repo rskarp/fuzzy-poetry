@@ -20,7 +20,8 @@
         "generateCombinedVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
           "s3Key": "amplify-builds/generateCombinedVariation-2b6c354a6c564b614e78-build.zip"
-        }
+        },
+        "sendEmail": {}
       },
       "api": {
         "FuzzyPoetry": {}

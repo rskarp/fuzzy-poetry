@@ -75,3 +75,18 @@ export const generateCombinedVariation = /* GraphQL */ `
     )
   }
 `;
+export const sendEmail = /* GraphQL */ `
+  mutation SendEmail(
+    $senderName: String
+    $senderAddress: String
+    $emailContent: String
+    $emailSubject: String
+  ) {
+    sendEmail(
+      senderName: $senderName
+      senderAddress: $senderAddress
+      emailContent: $emailContent
+      emailSubject: $emailSubject
+    )
+  }
+`;
