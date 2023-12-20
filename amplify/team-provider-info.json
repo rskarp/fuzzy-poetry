@@ -15,13 +15,16 @@
       "function": {
         "generatePoemVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generatePoemVariation-7445773672314e386f53-build.zip"
+          "s3Key": "amplify-builds/generatePoemVariation-4867676964316e627031-build.zip"
         },
         "generateCombinedVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generateCombinedVariation-2b6c354a6c564b614e78-build.zip"
+          "s3Key": "amplify-builds/generateCombinedVariation-746e5046413555545735-build.zip"
         },
-        "sendEmail": {}
+        "sendEmail": {
+          "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
+          "s3Key": "amplify-builds/sendEmail-6348447a756853643574-build.zip"
+        }
       },
       "api": {
         "FuzzyPoetry": {}
