@@ -167,8 +167,6 @@ def createPoemVariation(text, replacementTypeCounts):
         elif len(mediocre_labels) > 0:
             newLine = sample(mediocre_labels, 1)[0]['line']
             newLines[idx] = newLine+'\n'
-        else:
-            newLines[idx] = '-\n'
 
     # Generate each output line in parallel
     with concurrent.futures.ThreadPoolExecutor() as executor:
