@@ -1,22 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
-
   <div class="drawer wrapper">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
@@ -40,7 +26,9 @@ import HelloWorld from './components/HelloWorld.vue'
               </svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2 text-green-400">Fuzzy Poetry</div>
+          <div class="flex-1 px-2 mx-2 text-green-400">
+            <RouterLink to="/">Fuzzy Poetry</RouterLink>
+          </div>
           <div class="flex-none hidden lg:block">
             <nav>
               <ul class="menu menu-horizontal text-pink-400">
@@ -49,7 +37,7 @@ import HelloWorld from './components/HelloWorld.vue'
                 <li><RouterLink to="/">Home</RouterLink></li>
                 <li>
                   <span>About</span>
-                  <ul class="text-pink-400">
+                  <ul class="text-pink-400 z-50">
                     <div class="bg-base-300 w-40 p-1 flex flex-col">
                       <RouterLink to="/overview">Project Overview</RouterLink>
                       <RouterLink to="/context">Context</RouterLink>
@@ -95,7 +83,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <footer class="footer footer-center p-4 bg-base-300 text-base-content">
     <div>
-      <p>Copyright © 2023 - All rights reserved by Fuzzy Poetry Project</p>
+      <p>Copyright © 2024 - All rights reserved by Fuzzy Poetry Project</p>
     </div>
   </footer>
 </template>

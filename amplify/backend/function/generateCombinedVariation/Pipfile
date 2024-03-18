@@ -11,7 +11,7 @@ regex = "*"
 boto3 = "*"
 python-datamuse = "*"
 nltk = "*"
-openai = "0.28"
+openai = "1.14.1"
 
 [requires]
 python_version = "3.9"

@@ -1,5 +1,5 @@
 <script lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
+import VersionItem from './VersionItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
@@ -8,7 +8,7 @@ import { type ReplacementTypeCounts, type GenerateCombinedVariationMutation } fr
 
 export default {
   components: {
-    WelcomeItem,
+    VersionItem,
     DocumentationIcon
   },
   data() {
@@ -55,7 +55,10 @@ export default {
           this.variation = this.generateWordsList(result.data?.generateCombinedVariation ?? '')
         })
         .catch((result) => {
-          this.variation = [`An error occurred. ${result.errors?.at(0)?.message}`]
+          this.variation = [
+            'An error occurred. Please try again or contact us if the error persists.'
+          ]
+          console.error(result.errors?.at(0)?.message)
         })
         .finally(() => {
           this.loading = false
@@ -79,7 +82,7 @@ export default {
 </script>
 
 <template>
-  <WelcomeItem>
+  <VersionItem>
     <template #heading><span class="text-violet-500 text-2xl">Enter Poem Text</span></template>
 
     <textarea
@@ -87,7 +90,7 @@ export default {
       placeholder="Enter text here..."
       v-model="text"
     ></textarea>
-  </WelcomeItem>
+  </VersionItem>
   <div
     class="form-control w-full flex flex-row flex-wrap items-center justify-self-center justify-center content-center"
   >
@@ -178,7 +181,7 @@ export default {
       Generating...
     </button>
   </div>
-  <WelcomeItem>
+  <VersionItem>
     <template v-if="variation.length > 1" #heading
       ><span class="text-violet-500 text-2xl">Generated Variation</span></template
     >
@@ -193,5 +196,5 @@ export default {
       <span v-else class="no-underline">{{ word }}</span>
       {{ ' ' }}
     </template>
-  </WelcomeItem>
+  </VersionItem>
 </template>
