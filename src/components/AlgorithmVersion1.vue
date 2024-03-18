@@ -1,5 +1,5 @@
 <script lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
+import VersionItem from './VersionItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import { API } from 'aws-amplify'
 import * as mutations from '../graphql/mutations'
@@ -8,7 +8,7 @@ import { ReplacementType, type GeneratePoemVariationMutation } from '../API'
 
 export default {
   components: {
-    WelcomeItem,
+    VersionItem,
     DocumentationIcon
   },
   data() {
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <template>
-  <WelcomeItem>
+  <VersionItem>
     <template #heading><span class="text-violet-500 text-2xl">Enter Poem Text</span></template>
 
     <textarea
@@ -81,7 +81,7 @@ export default {
       placeholder="Enter text here..."
       v-model="text"
     ></textarea>
-  </WelcomeItem>
+  </VersionItem>
   <div
     class="form-control w-full flex flex-row flex-wrap items-center justify-self-center justify-center content-center"
   >
@@ -132,7 +132,7 @@ export default {
       Generating...
     </button>
   </div>
-  <WelcomeItem>
+  <VersionItem>
     <template v-if="variation.length > 1" #heading
       ><span class="text-violet-500 text-2xl">Generated Variation</span></template
     >
@@ -147,9 +147,9 @@ export default {
       <span v-else class="no-underline">{{ word }}</span>
       {{ ' ' }}
     </template>
-  </WelcomeItem>
+  </VersionItem>
   <!-- 
-  <WelcomeItem>
+  <VersionItem>
     <template #icon>
       <DocumentationIcon />
     </template>
@@ -158,9 +158,9 @@ export default {
     Vue’s
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
     provides you with all information you need to get started.
-  </WelcomeItem>
+  </VersionItem>
 
-  <WelcomeItem>
+  <VersionItem>
     <template #icon>
       <ToolingIcon />
     </template>
@@ -178,9 +178,9 @@ export default {
     <br />
 
     More instructions are available in <code>README.md</code>.
-  </WelcomeItem>
+  </VersionItem>
 
-  <WelcomeItem>
+  <VersionItem>
     <template #icon>
       <EcosystemIcon />
     </template>
@@ -194,9 +194,9 @@ export default {
     you need more resources, we suggest paying
     <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
     a visit.
-  </WelcomeItem>
+  </VersionItem>
 
-  <WelcomeItem>
+  <VersionItem>
     <template #icon>
       <CommunityIcon />
     </template>
@@ -212,9 +212,9 @@ export default {
     the official
     <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
     twitter account for latest news in the Vue world.
-  </WelcomeItem>
+  </VersionItem>
 
-  <WelcomeItem>
+  <VersionItem>
     <template #icon>
       <SupportIcon />
     </template>
@@ -223,5 +223,5 @@ export default {
     As an independent project, Vue relies on community backing for its sustainability. You can help
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </WelcomeItem> -->
+  </VersionItem> -->
 </template>

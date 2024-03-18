@@ -1,41 +1,37 @@
-<script lang="ts">
-export default {
-  data() {
-    return {
-      greeting: 'Hello World!'
-    }
-  }
-}
-</script>
-
 <template>
   <div class="overview">
     <h1 class="text-violet-500 text-2xl">Project Overview</h1>
     <p class="py-1">
-      Fuzzy Poetry begins by selecting a few poems by modernist authors taking them from the website
-      of the
-      <a class="link" href="https://www.poetryfoundation.org/">Poetry Foundation</a>. Then, Python
-      Natural Language Toolkit, or NLTK (a set of libraries and programs for symbolic and
-      statistical natural language processing for English written in Python's programming language),
-      is deployed to run through each poem and identify nouns, adjectives, adverbs, and verbs that
-      are good candidates for replacement.
+      Fuzzy Poetry begins by selecting a few poems written by modernist authors, taking them from
+      the website of the
+      <a class="link" href="https://www.poetryfoundation.org/">Poetry Foundation</a>. Then, Python's
+      Natural Language Toolkit (NLTK) is used for tokenization and part of speech tagging.
+      Essentially, we use it to analyze each poem and identify all "content words" (nouns,
+      adjectives, adverbs, and verbs) since they are considered good candidates for replacement.
     </p>
     <p class="py-1">
-      Substitute words are automatically chosen by the Datamuse Application Programming Interface or
-      API, an engine that enables users to find words that reflect a set of specific constraints. In
-      order to yield the best substitution, various restrictions on meaning, spelling, and sound can
-      be placed on the engine. For Fuzzy Poetry, the replacement words are either synonyms (e.g.,
-      beautiful replacing pretty), or words commonly used with the original (e.g., wildlife
-      substituting conservation).
+      Once the words to be replaced are identified, then replacement words are chosen using the
+      <a class="link" href="https://www.datamuse.com/api/">Datamuse API</a>: a tool that enables
+      users to find words that follow a set of specified constraints. These contraints are provided
+      as query parmeters and can be used to place various restrictions on meaning, spelling, and
+      sound of the words returned in the response. For the first iteration of Fuzzy Poetry, the
+      replacement words were either similar meaning words or phrases (e.g., beautiful replacing
+      pretty), or words commonly used with the original given word (e.g., wildlife substituting
+      conservation).
     </p>
     <p class="py-1">
-      Combining all these substitutions creates several “variations” of the original poems. In order
-      to train an AI to discard bad replacements and use/suggest more adequate ones, a large number
-      of such “variations” are rated, using Labelbox, as either good, mediocre, or bad. A good
-      replacement creates a unique and unexpected sentence; while being grammatically and
-      semantically correct, mediocre substitutions are just run-of-the-mill speech. Bad replacements
-      are either grammatically or semantically unfit for the given context. Here are some examples
-      of good substitutions:
+      Replacing each content word with a different related word results in an entirely new variation
+      of the original poem. Repeating this process, randomly choosing a replacement candidate from
+      the response of the Datamuse API each time, creates several “variations” of the original
+      poems. This is how poems in Version 1 of our pipeline are created. For subsequent versions, we
+      introduced the use of AI in our poem generation pipeline. The quality of the poems created
+      using the previous steps was classified by human labelers, creating a dataset used to
+      fine-tune various large language models for our poetry-specific task. The labeling was done
+      using <a class="link" href="https://labelbox.com/">Labelbox</a>, and lines were classified as
+      either good, mediocre, or bad. A good replacement creates a unique and unexpected sentence,
+      while being grammatically and semantically correct; mediocre substitutions are just
+      run-of-the-mill speech; and bad replacements are either grammatically or semantically unfit
+      for the given context. Here are some examples of good substitutions:
     </p>
     <ul class="indent-4 list-decimal list-inside">
       <li>
@@ -80,28 +76,36 @@ export default {
       </li>
     </ul>
     <p class="py-1">
-      The data collected from Labelbox is then used to fine-tune the AI code. At this stage, three
-      different lines of research were attempted. The first attempt consisted of sending
-      <a class="link" href="https://openai.com/">OPEN AI</a>, an American artificial intelligence
-      research laboratory and owner of chatgpt, the original poems with the labeled poems. Then,
-      using chatgpt 3, OPEN AI updates our code and sends back the newer version, which ideally
-      produces more of the word replacement labeled as good and less of the substitutions we labeled
-      as bad.
+      The dataset labeled in Labelbox was used to fine-tune
+      <a class="link" href="https://openai.com/">OpenAI's</a> GPT-3 curie model. Our first attempt
+      at fine-tuning was treated as a text generation problem. We used the poetry lines labeled as
+      good in our training set with the original line being the input and the new "good" line being
+      the output. The goal was that given an original line of poem, the fine-tuned GPT-3 model would
+      produce a new, but similar good line of poetry. However, the results varied greatly depending
+      on the length of the original line, and often produced longer, sentence-like results rather
+      than poetry.
     </p>
     <p class="py-1">
-      The second attempt involves training the AI ourselves, meaning that instead of sending the old
-      version of the code and the labeled poems to OPEN AI, a custom Python code that trains our AI
-      will be created. The method is beneficial because there will be more control over the code.
-      Two drawbacks are that it requires more labor leading to having to write the code, and an
-      older version of chatgpt (chatgpt 2) would have to be used as chatgpt 3 is not public yet, and
-      only people from OPEN AI can access it.
+      The second attempt at fine-tuning GPT-3 was treated as a classification problem. We wanted to
+      maintain some structure that we got from directly replacing words in the poem, while making
+      use of the large amount of knowledge that LLMs have. We used all classes of our labeled data
+      as training samples, where the input included the original line and the generated variation,
+      and the output was the label good, mediocre, or bad. The goal for this attempt was that given
+      an original line of poetry and a generated one, the fine-tuned model would classify the new
+      line as good, mediocre, or bad. This classifier model is used as one step in our Version 2
+      poem generation pipeline.
     </p>
     <p class="py-1">
-      The third attempt consists of combining multiple versions of the same poem to make the best
-      variation. This method involves taking the original version of the poem and generating
-      numerous variations with different word replacements. This will require finding and labeling
-      the best replacement for all the variations. Lastly, a code combining the variations into one
-      poem will be produced, utilizing only the lines labeled as the best among the variations.
+      The initial word replacement steps are combined with our fine-tuned GPT-3 model for
+      classification into a single poem generation pipeline. In this Version 2 of our pipeline,
+      first multiple variations are generated from the original poem by replacing all content words
+      with related words using various replacement types. For now, these replacement types include
+      similar meaning words and phrases, words commonly used with the given word, anagrams,
+      similarly spelled words, consonant matching words, and homophones. After creating these
+      variations, each new line is classified using our fine-tuned model. For each line in the
+      original poem, one of the corresponding generated good lines is used in the final poem. This
+      results in the final output being a combination of the best generated line variations collated
+      into one final new poem.
     </p>
   </div>
 </template>

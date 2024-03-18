@@ -28,15 +28,15 @@ export default {
         <h2 class="text-pink-400 text-xl">Riley Karp</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/rileykarp/">Riley Karp</a> is an
-          engineer with a background in biotechnology. She currently works as a Senior Software
-          Engineer at HighRes Biosolutions (Beverly, MA), where she collaborates on building
-          software products used by research laboratories and biotech companies to manage their
-          experiments using robotic automation. Riley earned her B.A. in Computer Science with a
-          minor in Physics from Colby College (Waterville, ME) and her B.E. in Engineering Sciences
-          - Biomedical Engineering Concentration from Dartmouth College (Hanover, NH). She is
-          currently building on her Machine Learning and Artificial Intelligence knowledge gained
-          during her undergraduate studies by working toward her Master’s of Science degree in
-          Electrical and Computer Engineering at Johns Hopkins University (Baltimore, MD).
+          engineer with a background in biotechnology. She has worked as a Software Engineer
+          building software products for laboratory automation used by life sciences laboratories
+          and biotech companies to manage their experiments. Riley earned her B.A. in Computer
+          Science with a minor in Physics from Colby College (Waterville, ME) and her B.E. in
+          Engineering Sciences - Biomedical Engineering Concentration from Dartmouth College
+          (Hanover, NH). She is currently building on her Machine Learning and Artificial
+          Intelligence knowledge gained during her undergraduate studies by working toward her
+          Master’s of Science degree in Electrical and Computer Engineering at Johns Hopkins
+          University (Baltimore, MD).
         </p>
       </li>
       <li>
