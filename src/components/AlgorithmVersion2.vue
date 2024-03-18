@@ -55,7 +55,10 @@ export default {
           this.variation = this.generateWordsList(result.data?.generateCombinedVariation ?? '')
         })
         .catch((result) => {
-          this.variation = [`An error occurred. ${result.errors?.at(0)?.message}`]
+          this.variation = [
+            'An error occurred. Please try again or contact us if the error persists.'
+          ]
+          console.error(result.errors?.at(0)?.message)
         })
         .finally(() => {
           this.loading = false
