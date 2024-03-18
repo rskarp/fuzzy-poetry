@@ -19,7 +19,7 @@
         },
         "generateCombinedVariation": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
-          "s3Key": "amplify-builds/generateCombinedVariation-746e5046413555545735-build.zip"
+          "s3Key": "amplify-builds/generateCombinedVariation-653062445336706e4359-build.zip"
         },
         "sendEmail": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",

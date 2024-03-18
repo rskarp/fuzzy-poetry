@@ -3,7 +3,7 @@ import json
 import boto3
 import os
 from uuid import uuid4
-import openai as ai
+from openai import OpenAI
 import datamuse
 import re
 import os
@@ -16,15 +16,16 @@ nltk.data.path.append('./nltk_data')
 
 client = boto3.client("dynamodb", 'us-east-1')
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
-ai.organization = os.environ['OPENAI_ORGANIZATION']
-ai.api_key = os.environ['OPENAI_API_KEY']
+ai = OpenAI(organization=os.environ['OPENAI_ORGANIZATION'],
+            api_key=os.environ['OPENAI_API_KEY'])
 
 
 def get_tokens(text):
     tokens = []
     for sent in sent_tokenize(text, language='english'):
         wordtokens = word_tokenize(sent, language='english')
-        tokens.extend(nltk.pos_tag(wordtokens, tagset='universal'))
+        if (len(wordtokens) > 0):
+            tokens.extend(nltk.pos_tag(wordtokens, tagset='universal'))
     content_tokens = [token for token in tokens if token[1] in [
         'NOUN', 'VERB', 'ADJ', 'ADV']]
     return tokens, content_tokens
@@ -97,12 +98,12 @@ def generateNVariations(text, nVars, replacement_types=['ml']):
 
 def getLineCategory(original, generated):
     # Get label for given poem line variation using fineTune2
-    FINE_TUNED_MODEL_3 = 'curie:ft-personal-2023-09-01-03-25-31'  # 5000 training
+    CUSTOM_MODEL = 'ft:davinci-002:personal::93yZODMm'
     PROMPT = f'<original>{original}</original> : <generated>{generated}</generated>\n\n###\n\n'
-    res = ai.Completion.create(
-        model=FINE_TUNED_MODEL_3,
+    res = ai.completions.create(
+        model=CUSTOM_MODEL,
         prompt=PROMPT)
-    category = res['choices'][0]['text'].split("Line\n", 1)[0]
+    category = res.choices[0].text.split("Line\n", 1)[0]
     # print(f'{category}: {generated}')
     return category
 
@@ -165,9 +166,7 @@ def createPoemVariation(text, replacementTypeCounts):
             newLines[idx] = newLine+'\n'
         elif len(mediocre_labels) > 0:
             newLine = sample(mediocre_labels, 1)[0]['line']
-            newLines[idx] = '[MEDIOCRE] '+newLine+'\n'
-        else:
-            newLines[idx] = '-\n'
+            newLines[idx] = newLine+'\n'
 
     # Generate each output line in parallel
     with concurrent.futures.ThreadPoolExecutor() as executor:
