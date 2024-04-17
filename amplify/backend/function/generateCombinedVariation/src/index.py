@@ -14,7 +14,7 @@ import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
 
-NEWLINECHAR_PLACEHOLDER = ' NEWLINECHAR '
+NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
 ai = OpenAI(organization=os.environ['OPENAI_ORGANIZATION'],
@@ -201,6 +201,7 @@ if __name__ == '__main__':
         they are the dead in ourselves,
         awake, my sleeping ones, I cry out to you,
         disentangle the nets of being!'''
+    poem = 'hello world\nthis is a test'
     print(createPoemVariation(
         poem, {
             "means_like": 2,
