@@ -47,7 +47,7 @@ export default {
       })
         .then((result) => {
           let resultString = result.data?.generatePoemVariation ?? ''
-          resultString = resultString.replace('\n', ' <br/> ')
+          resultString = resultString.replace(/\n/g, ' <br/> ')
           this.variation = this.generateWordsList(resultString)
         })
         .catch((result) => {
