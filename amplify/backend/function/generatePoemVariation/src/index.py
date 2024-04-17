@@ -45,7 +45,7 @@ replacementEnum2Abbreviation = {
 
 def get_tokens(originalText):
     tokens = []
-    text = originalText.replace('\n', NEWLINECHAR_PLACEHOLDER)
+    text = originalText.replace('\n', f' {NEWLINECHAR_PLACEHOLDER} ')
     for sent in sent_tokenize(text, language='english'):
         wordtokens = word_tokenize(sent, language='english')
         tokens.extend(nltk.pos_tag(wordtokens, tagset='universal'))

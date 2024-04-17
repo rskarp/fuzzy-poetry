@@ -14,7 +14,7 @@ import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
 
-NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
+NEWLINECHAR_PLACEHOLDER = ' NEWLINECHAR '
 client = boto3.client("dynamodb", 'us-east-1')
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
 ai = OpenAI(organization=os.environ['OPENAI_ORGANIZATION'],
@@ -23,7 +23,7 @@ ai = OpenAI(organization=os.environ['OPENAI_ORGANIZATION'],
 
 def get_tokens(originalText):
     tokens = []
-    text = originalText.replace('\n', NEWLINECHAR_PLACEHOLDER)
+    text = originalText.replace('\n', f' {NEWLINECHAR_PLACEHOLDER} ')
     for sent in sent_tokenize(text, language='english'):
         wordtokens = word_tokenize(sent, language='english')
         if (len(wordtokens) > 0):
