@@ -143,10 +143,11 @@ def createPoemVariation(text, replacementTypeCounts):
 
         # Get the category label (GOOD, MEDIOCRE, BAD) for a given line variation compared to the original
         def _processLineVariation(variationIdx, originalLine, variation):
-            cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variation[idx]
-                               ).replace('"', "'") if idx < len(variation) else originalLine
+            variationLine = variation[idx].replace(
+                '"', "'") if idx < len(variation) else originalLine
+            cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variationLine)
             label = getLineCategory(originalLine, cleanLine)
-            labels[variationIdx] = {'line': cleanLine, 'label': label}
+            labels[variationIdx] = {'line': variationLine, 'label': label}
             # print(f'label: {label}')
 
         # Get the label for each poem variation ion parallel
