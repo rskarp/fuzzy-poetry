@@ -14,14 +14,16 @@ import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
 
+NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
 ai = OpenAI(organization=os.environ['OPENAI_ORGANIZATION'],
             api_key=os.environ['OPENAI_API_KEY'])
 
 
-def get_tokens(text):
+def get_tokens(originalText):
     tokens = []
+    text = originalText.replace('\n', f' {NEWLINECHAR_PLACEHOLDER} ')
     for sent in sent_tokenize(text, language='english'):
         wordtokens = word_tokenize(sent, language='english')
         if (len(wordtokens) > 0):
@@ -71,8 +73,9 @@ def generateNVariations(text, nVars, replacement_types=['ml']):
     to_replace = sample(content_tokens, number_to_replace)
 
     def _processToken(idx, token):
-        newWords = [token[0] for _ in range(nVars)]
-        if token in to_replace:
+        newWords = ['\n' if token[0] == NEWLINECHAR_PLACEHOLDER else token[0]
+                    for _ in range(nVars)]
+        if token[0] != NEWLINECHAR_PLACEHOLDER and token in to_replace:
             options = get_candidates(token, replacement_types, max_options)
             if len(options) > 0:
                 chosenWords = sample(options, min([nVars, len(options)]))
@@ -143,10 +146,11 @@ def createPoemVariation(text, replacementTypeCounts):
 
         # Get the category label (GOOD, MEDIOCRE, BAD) for a given line variation compared to the original
         def _processLineVariation(variationIdx, originalLine, variation):
-            cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variation[idx]
-                               ).replace('"', "'") if idx < len(variation) else originalLine
+            variationLine = variation[idx].replace(
+                '"', "'") if idx < len(variation) else originalLine
+            cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variationLine)
             label = getLineCategory(originalLine, cleanLine)
-            labels[variationIdx] = {'line': cleanLine, 'label': label}
+            labels[variationIdx] = {'line': variationLine, 'label': label}
             # print(f'label: {label}')
 
         # Get the label for each poem variation ion parallel
@@ -174,7 +178,7 @@ def createPoemVariation(text, replacementTypeCounts):
             *a), list(enumerate(originalLines)))
 
     # Combine all output lines into a final output variation
-    poem = '\n'+''.join(newLines)
+    poem = ''.join(newLines)
     return poem
 
 
@@ -193,8 +197,13 @@ def handler(event, context):
 
 
 if __name__ == '__main__':
+    poem = '''As the dead prey upon us,
+        they are the dead in ourselves,
+        awake, my sleeping ones, I cry out to you,
+        disentangle the nets of being!'''
+    poem = 'hello world\nthis is a test'
     print(createPoemVariation(
-        '''Mary had a little lamb, little lamb, little lamb.\n Mary had a little lamb whose fleece was white as snow''', {
+        poem, {
             "means_like": 2,
             "triggered_by": 2,
             "anagram": 2,

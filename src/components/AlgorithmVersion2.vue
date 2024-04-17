@@ -52,7 +52,12 @@ export default {
         variables: { originalPoem: this.text, replacementTypeCounts }
       })
         .then((result) => {
-          this.variation = this.generateWordsList(result.data?.generateCombinedVariation ?? '')
+          let resultString = result.data?.generateCombinedVariation ?? ''
+          resultString = resultString.replace('\n', ' <br/> ')
+          this.variation =
+            resultString == ''
+              ? ['A good variation was not created. Please try again.']
+              : this.generateWordsList(resultString)
         })
         .catch((result) => {
           this.variation = [
@@ -192,6 +197,9 @@ export default {
         :data-tip="getOriginalWord(word)"
       >
         {{ `${word.split('[#ORIGINAL_')[0]}` }}
+      </span>
+      <span v-else-if="word === '<br/>'">
+        <br />
       </span>
       <span v-else class="no-underline">{{ word }}</span>
       {{ ' ' }}

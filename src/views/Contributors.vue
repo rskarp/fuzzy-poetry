@@ -1,13 +1,3 @@
-<script lang="ts">
-export default {
-  data() {
-    return {
-      greeting: 'Hello World!'
-    }
-  }
-}
-</script>
-
 <template>
   <div class="contributors">
     <h1 class="text-violet-500 text-2xl">Contributors</h1>
@@ -36,7 +26,8 @@ export default {
           (Hanover, NH). She is currently building on her Machine Learning and Artificial
           Intelligence knowledge gained during her undergraduate studies by working toward her
           Master’s of Science degree in Electrical and Computer Engineering at Johns Hopkins
-          University (Baltimore, MD).
+          University (Baltimore, MD), where she is focusing on machine learning and signal
+          processing.
         </p>
       </li>
       <li>
@@ -79,6 +70,20 @@ export default {
           College. Additionally, working on various projects such as assisting in the training of AI
           through Lablebox. and assisting with other editing duties working closely with Agincourt
           Press.
+        </p>
+      </li>
+      <li>
+        <h2 class="text-pink-400 text-xl">William Acevedo-Sideri</h2>
+        <p class="py-1 ml-4">
+          <a class="link" href="https://www.linkedin.com/in/william-acevedo-sideri-1a5615152/"
+            >William Acevedo-Sideri</a
+          >
+          is an Assistant Director of Admissions at Colby College currently. He earned his BA in
+          English with minors in Computer Science and Theater/Dance at Colby, and earned his
+          Master’s in Digital Media Studies at the University of Chicago. While working on his
+          Master’s he focused on the use of Computational methods to study literature, with a focus
+          on the poems of Emily Dickinson. He is currently building his knowledge on Data Analysis,
+          and furthering his understanding of AI’s place in English Literary Study.
         </p>
       </li>
       <li>
