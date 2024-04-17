@@ -54,7 +54,10 @@ export default {
         .then((result) => {
           let resultString = result.data?.generateCombinedVariation ?? ''
           resultString = resultString.replace('\n', ' <br/> ')
-          this.variation = this.generateWordsList(resultString)
+          this.variation =
+            resultString == ''
+              ? ['A good variation was not created. Please try again.']
+              : this.generateWordsList(resultString)
         })
         .catch((result) => {
           this.variation = [

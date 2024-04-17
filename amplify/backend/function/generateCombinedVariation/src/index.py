@@ -178,7 +178,7 @@ def createPoemVariation(text, replacementTypeCounts):
             *a), list(enumerate(originalLines)))
 
     # Combine all output lines into a final output variation
-    poem = '\n'+''.join(newLines)
+    poem = ''.join(newLines)
     return poem
 
 
