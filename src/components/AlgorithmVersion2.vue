@@ -54,7 +54,6 @@ export default {
         .then((result) => {
           let resultString = result.data?.generateCombinedVariation ?? ''
           resultString = resultString.replace(/\n/g, ' <br/> ')
-          console.log(resultString)
           this.variation =
             resultString == ''
               ? ['A good variation was not created. Please try again.']
