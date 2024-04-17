@@ -2,15 +2,15 @@
   <div class="overview">
     <h1 class="text-violet-500 text-2xl">Project Overview</h1>
     <p class="py-1">
-      Fuzzy Poetry begins by selecting a few poems written by modernist authors, taking them from
-      the website of the
+      Using Fuzzy Poetry begins by selecting a few poems written by modernist authors, taking them
+      from the website of the
       <a class="link" href="https://www.poetryfoundation.org/">Poetry Foundation</a>. Then, Python's
-      Natural Language Toolkit (NLTK) is used for tokenization and part of speech tagging.
+      Natural Language Toolkit (NLTK) is used for tokenization and part-of-speech (POS) tagging.
       Essentially, we use it to analyze each poem and identify all "content words" (nouns,
-      adjectives, adverbs, and verbs) since they are considered good candidates for replacement.
+      adjectives, adverbs, and verbs) as they are considered good candidates for replacement.
     </p>
     <p class="py-1">
-      Once the words to be replaced are identified, then replacement words are chosen using the
+      Once the content words are identified, replacement words are chosen using the
       <a class="link" href="https://www.datamuse.com/api/">Datamuse API</a>: a tool that enables
       users to find words that follow a set of specified constraints. These contraints are provided
       as query parmeters and can be used to place various restrictions on meaning, spelling, and
@@ -28,10 +28,10 @@
       using the previous steps was classified by human labelers, creating a dataset used to
       fine-tune various large language models for our poetry-specific task. The labeling was done
       using <a class="link" href="https://labelbox.com/">Labelbox</a>, and lines were classified as
-      either good, mediocre, or bad. A good replacement creates a unique and unexpected sentence,
-      while being grammatically and semantically correct; mediocre substitutions are just
-      run-of-the-mill speech; and bad replacements are either grammatically or semantically unfit
-      for the given context. Here are some examples of good substitutions:
+      good, mediocre, or bad. A good replacement creates a unique and unexpected sentence, while
+      being grammatically and semantically correct; mediocre substitutions are just run-of-the-mill
+      speech; and bad replacements are either grammatically or semantically unfit for the given
+      context. Here are some examples of good substitutions:
     </p>
     <ul class="indent-4 list-decimal list-inside">
       <li>
@@ -80,10 +80,10 @@
       <a class="link" href="https://openai.com/">OpenAI's</a> GPT-3 curie model. Our first attempt
       at fine-tuning was treated as a text generation problem. We used the poetry lines labeled as
       good in our training set with the original line being the input and the new "good" line being
-      the output. The goal was that given an original line of poem, the fine-tuned GPT-3 model would
-      produce a new, but similar good line of poetry. However, the results varied greatly depending
-      on the length of the original line, and often produced longer, sentence-like results rather
-      than poetry.
+      the output. The goal was that given an original line of a poem, the fine-tuned GPT-3 model
+      would produce a new, but similar good line of poetry. However, the results varied greatly
+      depending on the length of the original line, and often produced longer, sentence-like results
+      rather than poetry.
     </p>
     <p class="py-1">
       The second attempt at fine-tuning GPT-3 was treated as a classification problem. We wanted to
@@ -96,9 +96,9 @@
       poem generation pipeline.
     </p>
     <p class="py-1">
-      The initial word replacement steps are combined with our fine-tuned GPT-3 model for
+      The initial word replacement steps are combined with our GPT-3 model fine-tuned for
       classification into a single poem generation pipeline. In this Version 2 of our pipeline,
-      first multiple variations are generated from the original poem by replacing all content words
+      first, multiple variations are generated from the original poem by replacing all content words
       with related words using various replacement types. For now, these replacement types include
       similar meaning words and phrases, words commonly used with the given word, anagrams,
       similarly spelled words, consonant matching words, and homophones. After creating these

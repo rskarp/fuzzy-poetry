@@ -15,6 +15,7 @@ nltk.data.path.append('./nltk_data')
 # nltk.download('punkt')
 # nltk.download('universal_tagset')
 
+NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
 TABLE = os.environ['POEM_VARIATION_TABLE_NAME']
 
@@ -42,8 +43,9 @@ replacementEnum2Abbreviation = {
 #     return tokens, content_tokens
 
 
-def get_tokens(text):
+def get_tokens(originalText):
     tokens = []
+    text = originalText.replace('\n', f' {NEWLINECHAR_PLACEHOLDER} ')
     for sent in sent_tokenize(text, language='english'):
         wordtokens = word_tokenize(sent, language='english')
         tokens.extend(nltk.pos_tag(wordtokens, tagset='universal'))
@@ -141,8 +143,8 @@ def createPoemVariation(text, replacement_types=['ml']):
     to_replace = sample(content_tokens, number_to_replace)
 
     def _processToken(idx, token):
-        newWord = token[0]
-        if token in to_replace:
+        newWord = '\n' if token[0] == NEWLINECHAR_PLACEHOLDER else token[0]
+        if token[0] != NEWLINECHAR_PLACEHOLDER and token in to_replace:
             options = get_candidates(token, replacements, max_options)
             if len(options) > 0:
                 chosenWords = sample(options, 1)
@@ -175,5 +177,9 @@ def handler(event, context):
 
 
 if __name__ == '__main__':
+    poem = '''As the dead prey upon us,
+        they are the dead in ourselves,
+        awake, my sleeping ones, I cry out to you,
+        disentangle the nets of being!'''
     print(createPoemVariation(
-        '''Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleece was white as snow''', ['MEANS_LIKE']))
+        poem, ['MEANS_LIKE']))
