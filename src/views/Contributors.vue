@@ -31,6 +31,17 @@
         </p>
       </li>
       <li>
+        <h2 class="text-pink-400 text-xl">Ruth Park</h2>
+        <p class="py-1 ml-4">
+          <a class="link" href="https://www.linkedin.com/in/ruth-park-273257205/">Ruth Park</a> is a
+          student at Colby majoring in English and Spanish who is interested in exploring the world
+          of literary translation. Working on Fuzzy Poetry, an experimental form of such endeavor,
+          she hopes that the project will help make poetry more approachable, accessible, and fun.
+          She has been working with Professor Gianluca Rizzo as a research assistant for the past
+          three years.
+        </p>
+      </li>
+      <li>
         <h2 class="text-pink-400 text-xl">Gianluca Rizzo</h2>
         <p class="py-1 ml-4">
           A literary critic, translator, and poet,
