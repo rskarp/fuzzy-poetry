@@ -92,7 +92,6 @@
       <li>
         <h2 class="text-pink-400 text-xl">Mercedes Roussos</h2>
         <p class="py-1 ml-4">
-          An undergrad student Majoring in Neurobiology with a minor in Italian,
           <a class="link" href="https://www.linkedin.com/in/mercedes-roussos-7ba0742ba/"
             >Mercedes Roussos</a
           > is a current student at Colby College, majoring in English with a concentration in Creative Writing and minoring in Italian Studies. She has applied her understanding of poetry through the use of Labelbox to help further develop Fuzzy Poetry and has also contributed to edits and advertisements for the Agincourt Press. Mercedes is excited to aid in providing others with an easy and accessible way to create and discover newfound poetry alongside Gianluca Rizzo and the team.
