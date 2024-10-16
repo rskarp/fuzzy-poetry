@@ -42,6 +42,12 @@
         </p>
       </li>
       <li>
+        <h2 class="text-pink-400 text-xl">Presley Privitera</h2>
+        <p class="py-1 ml-4">
+          <a class="link" href="https://www.linkedin.com/in/presley-privitera/">Presley Privitera</a> is a Colby College student majoring in Biology and minoring in Italian Studies. Working as a Research Assistant for Gianluca Rizzo, Presley has contributed to Fuzzy Poetry by assisting in the training of AI through Labelbox, improving the website's usability, and researching the growing world of Electronic poetry.
+        </p>
+      </li>
+      <li>
         <h2 class="text-pink-400 text-xl">Gianluca Rizzo</h2>
         <p class="py-1 ml-4">
           A literary critic, translator, and poet,
@@ -84,6 +90,15 @@
         </p>
       </li>
       <li>
+        <h2 class="text-pink-400 text-xl">Mercedes Roussos</h2>
+        <p class="py-1 ml-4">
+          An undergrad student Majoring in Neurobiology with a minor in Italian,
+          <a class="link" href="https://www.linkedin.com/in/mercedes-roussos-7ba0742ba/"
+            >Mercedes Roussos</a
+          > is a current student at Colby College, majoring in English with a concentration in Creative Writing and minoring in Italian Studies. She has applied her understanding of poetry through the use of Labelbox to help further develop Fuzzy Poetry and has also contributed to edits and advertisements for the Agincourt Press. Mercedes is excited to aid in providing others with an easy and accessible way to create and discover newfound poetry alongside Gianluca Rizzo and the team.
+        </p>
+      </li>
+      <li>
         <h2 class="text-pink-400 text-xl">William Acevedo-Sideri</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/william-acevedo-sideri-1a5615152/"
@@ -112,6 +127,12 @@
           Amanda holds a Ph.D. in Computer Science from the University of Rochester. She is the
           co-inventor of over 30 patents and has authored or co-authored over 100 papers in the
           field of natural language processing.
+        </p>
+      </li>
+      <li>
+        <h2 class="text-pink-400 text-xl">Maya Sutton-Hall</h2>
+        <p class="py-1 ml-4">
+          <a class="link" href="https://www.linkedin.com/in/maya-sutton-hall-186730235/">Maya Sutton-Hall</a> is a student at Colby College, where she is pursuing a major in Computational Psychology and a minor in Italian Studies. Intrigued by the convergence of technology and language, she explores this area as a research assistant to Professor Gianluca Rizzo, offering her skills and insights to support his work.
         </p>
       </li>
       <li>
