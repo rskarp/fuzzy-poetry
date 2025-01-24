@@ -2,11 +2,18 @@
 import type AlgorithmVersion1Vue from '@/components/AlgorithmVersion1.vue'
 import AlgorithmVersion1 from '../components/AlgorithmVersion1.vue'
 import AlgorithmVersion2 from '../components/AlgorithmVersion2.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <main>
-    <h1 class="text-violet-500 text-2xl">Select an algorithm version to generate a poem.</h1>
+    <div class="flex flex-col space-y-1 text-center items-center py-4">
+      <h1 class="text-violet-500 text-2xl">
+        Welcome to Fuzzy Poetry, an application that employs generative AI to help you write poetry. Take an existing <a class="link" href="https://www.poetryfoundation.org/">text</a>, run it through our application, get it back reimagined, and <a class="link" href="https://glia.ca/rerites/">carve</a> out an "original" poem. At the bottom of the text box, pick how many and what kind of variations of the input you want to generate. You can use synonyms, anagrams, homophones, or words that are related to, spelled similarly to, or match the consonants of the starting text. These variations will then be distilled into a "new" version, ready to be carved. For more details, see our <RouterLink to="/overview">About Page</RouterLink>.
+      </h1>
+      <iframe src="https://drive.google.com/file/d/15hxEcmaMWM0WntGliI_-aB81pGNBCmwE/preview" width="640" height="480" allow="autoplay" allowfullscreen></iframe>
+    </div>
+    <h1 class="text-violet-500 text-2xl">Try it out: Select an algorithm version to generate a poem.</h1>
     <div class="flex flex-col space-y-1">
       <div class="collapse bg-base-200">
         <input type="checkbox" class="peer" />
