@@ -31,13 +31,13 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
           <div class="flex-none hidden lg:block">
             <nav>
-              <ul class="menu menu-horizontal text-pink-400">
+              <ul class="menu menu-horizontal text-secondary">
                 <!-- Navbar menu content here -->
 
                 <li><RouterLink to="/">Home</RouterLink></li>
                 <li>
                   <span>About</span>
-                  <ul class="text-pink-400 z-50">
+                  <ul class="text-secondary z-50">
                     <div class="bg-base-300 w-40 p-1 flex flex-col">
                       <RouterLink to="/overview">Project Overview</RouterLink>
                       <RouterLink to="/context">Context</RouterLink>
@@ -60,13 +60,13 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="drawer-side">
       <label for="my-drawer-3" class="drawer-overlay"></label>
 
-      <ul class="menu p-4 w-80 bg-base-100 text-pink-400">
+      <ul class="menu p-4 w-80 bg-base-100 text-secondary">
         <!-- Sidebar content here -->
         <nav>
           <li><RouterLink to="/">Home</RouterLink></li>
           <li>
             <span>About</span>
-            <ul class="text-pink-400">
+            <ul class="text-secondary">
               <div class="w-40 p-1 ml-6 flex flex-col">
                 <RouterLink to="/overview">Project Overview</RouterLink>
                 <RouterLink to="/context">Context</RouterLink>
