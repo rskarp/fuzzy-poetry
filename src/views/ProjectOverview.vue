@@ -35,44 +35,44 @@
     </p>
     <ul class="indent-4 list-decimal list-inside">
       <li>
-        A <span class="text-pink-400">slug</span> roaming across the fields (with the original word
-        being <span class="text-pink-400">low</span>)
+        A <span class="text-secondary">slug</span> roaming across the fields (with the original word
+        being <span class="text-secondary">low</span>)
       </li>
       <li>
-        And thee, across the <span class="text-pink-400">escort</span> (with the original being
-        <span class="text-pink-400">harbor</span>)
+        And thee, across the <span class="text-secondary">escort</span> (with the original being
+        <span class="text-secondary">harbor</span>)
       </li>
       <li>
-        In the <span class="text-pink-400">wickedness</span> of the day (with the original being
-        <span class="text-pink-400">darkness</span>)
+        In the <span class="text-secondary">wickedness</span> of the day (with the original being
+        <span class="text-secondary">darkness</span>)
       </li>
       <li>
-        I am <span class="text-pink-400">demolished</span> (with the original being
-        <span class="text-pink-400">old</span>)
+        I am <span class="text-secondary">demolished</span> (with the original being
+        <span class="text-secondary">old</span>)
       </li>
       <li>
-        That was near your <span class="text-pink-400">blood</span> (with the original being
-        <span class="text-pink-400">heart</span>)
+        That was near your <span class="text-secondary">blood</span> (with the original being
+        <span class="text-secondary">heart</span>)
       </li>
       <li>
-        It was in <span class="text-pink-400">ill</span> time (with the original being
-        <span class="text-pink-400">Bad</span>)
+        It was in <span class="text-secondary">ill</span> time (with the original being
+        <span class="text-secondary">Bad</span>)
       </li>
       <li>
-        The <span class="text-pink-400">skeletons</span> of the sea (with the original being
-        <span class="text-pink-400">Coral</span>)
+        The <span class="text-secondary">skeletons</span> of the sea (with the original being
+        <span class="text-secondary">Coral</span>)
       </li>
       <li>
-        Gin the <span class="text-pink-400">ladyship</span> (with the original being
-        <span class="text-pink-400">goodwife</span>)
+        Gin the <span class="text-secondary">ladyship</span> (with the original being
+        <span class="text-secondary">goodwife</span>)
       </li>
       <li>
-        Before the <span class="text-pink-400">daylight</span> (with the original being
-        <span class="text-pink-400">clocks</span>)
+        Before the <span class="text-secondary">daylight</span> (with the original being
+        <span class="text-secondary">clocks</span>)
       </li>
       <li>
-        The reflection of your <span class="text-pink-400">ghost</span> (with the original being
-        <span class="text-pink-400">shadow</span>)
+        The reflection of your <span class="text-secondary">ghost</span> (with the original being
+        <span class="text-secondary">shadow</span>)
       </li>
     </ul>
     <p class="py-1">

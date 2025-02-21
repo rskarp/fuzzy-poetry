@@ -13,7 +13,7 @@ export default {
     <h1 class="text-violet-500 text-2xl">Context</h1>
     <ul>
       <li>
-        <h2 class="text-pink-400 text-xl">Websites</h2>
+        <h2 class="text-secondary text-xl">Websites</h2>
         <ul class="ml-4">
           <li>
             <h3 class="text-green-400 text-l">
@@ -63,7 +63,7 @@ export default {
         </ul>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Online Journals</h2>
+        <h2 class="text-secondary text-xl">Online Journals</h2>
         <ul class="ml-4">
           <li>
             <div class="flex flex-row py-1">
@@ -259,7 +259,7 @@ export default {
         </ul>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Anthologies</h2>
+        <h2 class="text-secondary text-xl">Anthologies</h2>
         <p class="py-1">
           The Anthologies are formal collections of born-digital works selected by an editor or
           editorial team for publication. Those found here currently—Electronic Literature
@@ -311,7 +311,7 @@ export default {
         </ul>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Scholarly Essays</h2>
+        <h2 class="text-secondary text-xl">Scholarly Essays</h2>
         <p class="py-1">
           Scholarly Essays includes critical writing, artists papers, documentary video, and other
           forms of scholarly publications, created both for digital and print contexts. Accessible

@@ -3,7 +3,7 @@
     <h1 class="text-violet-500 text-2xl">Contributors</h1>
     <ul>
       <li>
-        <h2 class="text-pink-400 text-xl">Bashaina Dumerant</h2>
+        <h2 class="text-secondary text-xl">Bashaina Dumerant</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/bashaina-dumerant-8980591aa/"
             >Bashaina Dumerant</a
@@ -15,7 +15,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Riley Karp</h2>
+        <h2 class="text-secondary text-xl">Riley Karp</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/rileykarp/">Riley Karp</a> is an
           engineer with a background in biotechnology. She has worked as a Software Engineer
@@ -31,7 +31,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Ruth Park</h2>
+        <h2 class="text-secondary text-xl">Ruth Park</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/ruth-park-273257205/">Ruth Park</a> is a
           student at Colby majoring in English and Spanish who is interested in exploring the world
@@ -42,13 +42,13 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Presley Privitera</h2>
+        <h2 class="text-secondary text-xl">Presley Privitera</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/presley-privitera/">Presley Privitera</a> is a Colby College student majoring in Biology and minoring in Italian Studies. Working as a Research Assistant for Gianluca Rizzo, Presley has contributed to Fuzzy Poetry by assisting in the training of AI through Labelbox, improving the website's usability, and researching the growing world of Electronic poetry.
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Gianluca Rizzo</h2>
+        <h2 class="text-secondary text-xl">Gianluca Rizzo</h2>
         <p class="py-1 ml-4">
           A literary critic, translator, and poet,
           <a class="link">Gianluca Rizzo</a> teaches at Colby College (Waterville, ME), where he is
@@ -77,7 +77,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Laura Romero</h2>
+        <h2 class="text-secondary text-xl">Laura Romero</h2>
         <p class="py-1 ml-4">
           An undergrad student Majoring in Neurobiology with a minor in Italian,
           <a class="link" href="https://www.linkedin.com/in/laura-karina-romero-aa102b225/"
@@ -90,7 +90,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Mercedes Roussos</h2>
+        <h2 class="text-secondary text-xl">Mercedes Roussos</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/mercedes-roussos-7ba0742ba/"
             >Mercedes Roussos</a
@@ -98,7 +98,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">William Acevedo-Sideri</h2>
+        <h2 class="text-secondary text-xl">William Acevedo-Sideri</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/william-acevedo-sideri-1a5615152/"
             >William Acevedo-Sideri</a
@@ -112,7 +112,7 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Amanda Stent</h2>
+        <h2 class="text-secondary text-xl">Amanda Stent</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/amandastent/">Amanda Stent</a> came to
           Colby in 2021 to fulfill the college’s vision of establishing Colby as a nationally
@@ -129,13 +129,13 @@
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Maya Sutton-Hall</h2>
+        <h2 class="text-secondary text-xl">Maya Sutton-Hall</h2>
         <p class="py-1 ml-4">
           <a class="link" href="https://www.linkedin.com/in/maya-sutton-hall-186730235/">Maya Sutton-Hall</a> is a student at Colby College, where she is pursuing a major in Computational Psychology and a minor in Italian Studies. Intrigued by the convergence of technology and language, she explores this area as a research assistant to Professor Gianluca Rizzo, offering her skills and insights to support his work.
         </p>
       </li>
       <li>
-        <h2 class="text-pink-400 text-xl">Grace Yang</h2>
+        <h2 class="text-secondary text-xl">Grace Yang</h2>
         <p class="py-1 ml-4">
           <a class="link">Grace Yang</a> is currently a student at Colby College as an English and
           Art double major. It was through a program at Colby and her interest in the company that
