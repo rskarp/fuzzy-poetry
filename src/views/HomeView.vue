@@ -8,10 +8,10 @@ import { RouterLink } from 'vue-router'
   <main>
     <h1 class="text-violet-500 text-2xl">Try it out: Select an algorithm version to generate a poem.</h1>
     <div class="flex flex-col space-y-2 my-8">
-      <div class="collapse bg-base-200 rounded-md shadow-lg">
+      <div class="collapse group bg-base-200 rounded-md shadow-lg">
         <input type="checkbox" class="peer" />
         <div
-          class="collapse-title text-xl text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content"
+          class="collapse-title text-xl text-primary-content group-hover:bg-primary peer-checked:bg-primary peer-checked:text-secondary-content"
         >
           Version 1
         </div>
@@ -24,10 +24,10 @@ import { RouterLink } from 'vue-router'
         </div>
       </div>
 
-      <div class="collapse bg-base-200 rounded-md shadow-lg">
+      <div class="collapse group bg-base-200 rounded-md shadow-lg">
         <input type="checkbox" class="peer" />
         <div
-          class="collapse-title text-xl text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content"
+          class="collapse-title text-xl text-primary-content group-hover:bg-primary peer-checked:bg-primary peer-checked:text-secondary-content"
         >
           Version 2
         </div>
