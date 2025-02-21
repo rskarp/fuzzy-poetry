@@ -68,7 +68,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/beehiveThumbnail.png" />
+                <img src="../assets/images/beehiveThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1"
                 ><h3 class="text-green-400 text-l">
@@ -86,7 +86,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/bleuOrangeThumbnail.png" />
+                <img src="../assets/images/bleuOrangeThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -106,7 +106,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/cauldronAndNetThumbnail.png" />
+                <img src="../assets/images/cauldronAndNetThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -124,7 +124,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/frameThumbnail.png" />
+                <img src="../assets/images/frameThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -141,7 +141,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/poemsThatGoThumbnail.png" />
+                <img src="../assets/images/poemsThatGoThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -161,7 +161,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/ridingTheMeridianThumbnail.png" />
+                <img src="../assets/images/ridingTheMeridianThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -179,7 +179,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/irwThumbnail.png" />
+                <img src="../assets/images/irwThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -199,7 +199,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/newRiverThumbnail.jpeg" />
+                <img src="../assets/images/newRiverThumbnail.jpeg" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -221,7 +221,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/vectorsThumbnail.jpeg" />
+                <img src="../assets/images/vectorsThumbnail.jpeg" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
@@ -239,7 +239,7 @@ export default {
           <li>
             <div class="flex flex-row py-1">
               <div class="w-16 rounded shrink-0 grow-0">
-                <img src="../assets/images/wordCircuitsThumbnail.png" />
+                <img src="../assets/images/wordCircuitsThumbnail.png" class="rounded-md"/>
               </div>
               <span class="px-1">
                 <h3 class="text-green-400 text-l">
