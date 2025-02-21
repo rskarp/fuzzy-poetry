@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type AlgorithmVersion1Vue from '@/components/AlgorithmVersion1.vue'
 import AlgorithmVersion1 from '../components/AlgorithmVersion1.vue'
 import AlgorithmVersion2 from '../components/AlgorithmVersion2.vue'
 import { RouterLink } from 'vue-router'

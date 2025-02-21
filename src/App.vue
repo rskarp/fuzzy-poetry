@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="drawer-content flex flex-col">
       <!-- Navbar -->
       <header>
-        <div class="w-full navbar bg-base-300">
+        <div class="w-full navbar bg-base-300 rounded-b-sm">
           <div class="flex-none lg:hidden">
             <label for="my-drawer-3" class="btn btn-square btn-ghost">
               <svg
@@ -81,9 +81,9 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </div>
 
-  <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content rounded-t-sm">
     <div>
-      <p>Copyright © 2024 - All rights reserved by Fuzzy Poetry Project</p>
+      <p>Copyright © 2025 - All rights reserved by Fuzzy Poetry Project</p>
     </div>
   </footer>
 </template>
