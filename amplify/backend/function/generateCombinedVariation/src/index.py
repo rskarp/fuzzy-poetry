@@ -15,6 +15,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
 nltk.data.path.append('/tmp')
 nltk.download('punkt_tab', download_dir='/tmp')
+nltk.download('averaged_perceptron_tagger_eng', download_dir='/tmp')
+nltk.download('universal_tagset', download_dir='/tmp')
 
 NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
