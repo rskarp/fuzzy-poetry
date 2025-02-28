@@ -99,19 +99,39 @@ def generateNVariations(text, nVars, replacement_types=['ml']):
     return poems
 
 
-def getLineCategory(original, generated):
+def getLineCategory(original, generated, version="v2"):
     # Get label for given poem line variation using fineTune2
-    CUSTOM_MODEL = 'ft:davinci-002:personal::93yZODMm'
     PROMPT = f'<original>{original}</original> : <generated>{generated}</generated>\n\n###\n\n'
-    res = ai.completions.create(
-        model=CUSTOM_MODEL,
-        prompt=PROMPT)
-    category = res.choices[0].text.split("Line\n", 1)[0]
+    if version == "v2":
+        res = ai.completions.create(
+            model='ft:davinci-002:personal::93yZODMm',
+            prompt=PROMPT)
+        category = res.choices[0].text.split("Line\n", 1)[0]
+    elif version == "v3":
+        category = version3(PROMPT)
+    else:
+        category = None
     # print(f'{category}: {generated}')
     return category
 
 
-def createPoemVariation(text, replacementTypeCounts):
+def version3(prompt):
+    system_prompt = "You are a poetry analyzer. You will be given a pair of poem segments. One segment will be labelled as <original> and the other will be labeled as <generated>. Your job is to analyze the writing style of the given segments of poetry and determine whether the <generated> poem segment is a Good, Mediocre, or Bad alternative to the <original> segment. Respond with only the label."
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt}
+    ]
+
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        messages=messages
+    )
+    # placeholder for now
+    # return completion.choices[0].message.content
+    return "Good"
+
+
+def createPoemVariation(text, replacementTypeCounts, algo_version):
     nSyn = replacementTypeCounts["means_like"]
     nRel = replacementTypeCounts["triggered_by"]
     nAna = replacementTypeCounts["anagram"]
@@ -149,7 +169,7 @@ def createPoemVariation(text, replacementTypeCounts):
             variationLine = variation[idx].replace(
                 '"', "'") if idx < len(variation) else originalLine
             cleanLine = re.sub(r'\[#ORIGINAL_[^\]]+]', '', variationLine)
-            label = getLineCategory(originalLine, cleanLine)
+            label = getLineCategory(originalLine, cleanLine, algo_version)
             labels[variationIdx] = {'line': variationLine, 'label': label}
             # print(f'label: {label}')
 
@@ -187,7 +207,8 @@ def handler(event, context):
 
     text = event['arguments']['originalPoem']
     replacementTypeCounts = event['arguments']['replacementTypeCounts']
-    variation = createPoemVariation(text, replacementTypeCounts)
+    algo_version = event['arguments']['algoVersion']
+    variation = createPoemVariation(text, replacementTypeCounts, algo_version)
     client.put_item(TableName=TABLE, Item={
         'id': {'S': str(uuid4())},
         'original_text': {'S': text},

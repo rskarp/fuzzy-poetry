@@ -239,6 +239,7 @@ export type GeneratePoemVariationMutation = {
 export type GenerateCombinedVariationMutationVariables = {
   originalPoem?: string | null,
   replacementTypeCounts?: ReplacementTypeCounts | null,
+  algoVersion?: string | null,
 };
 
 export type GenerateCombinedVariationMutation = {
