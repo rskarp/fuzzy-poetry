@@ -126,11 +126,13 @@ def version3(prompt):
         {"role": "user", "content": prompt}
     ]
 
-    completion = ai.chat.completions.create(
-        model="ft:gpt-4o-mini-2024-07-18:personal::B5ohvIap", messages=messages
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        messages=messages
     )
-
-    return completion.choices[0].message.content.split("Line")[0].strip()
+    # placeholder for now
+    # return completion.choices[0].message.content
+    return "Good"
 
 
 def createPoemVariation(text, replacementTypeCounts, algo_version):
