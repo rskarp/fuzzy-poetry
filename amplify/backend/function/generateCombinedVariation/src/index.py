@@ -13,6 +13,7 @@ from string import punctuation
 import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
+nltk.download('punkt_tab')
 
 NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
@@ -122,13 +123,11 @@ def version3(prompt):
         {"role": "user", "content": prompt}
     ]
 
-    completion = client.chat.completions.create(
-        model="gpt-4o-mini-2024-07-18",
-        messages=messages
+    completion = ai.chat.completions.create(
+        model="ft:gpt-4o-mini-2024-07-18:personal::B5ohvIap", messages=messages
     )
-    # placeholder for now
-    # return completion.choices[0].message.content
-    return "Good"
+
+    return completion.choices[0].message.content.split("Line")[0].strip()
 
 
 def createPoemVariation(text, replacementTypeCounts, algo_version):
