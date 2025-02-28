@@ -68,10 +68,12 @@ export const generateCombinedVariation = /* GraphQL */ `
   mutation GenerateCombinedVariation(
     $originalPoem: String
     $replacementTypeCounts: ReplacementTypeCounts
+    $algoVersion: String
   ) {
     generateCombinedVariation(
       originalPoem: $originalPoem
       replacementTypeCounts: $replacementTypeCounts
+      algoVersion: $algoVersion
     )
   }
 `;

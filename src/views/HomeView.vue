@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AlgorithmVersion1 from '../components/AlgorithmVersion1.vue'
 import AlgorithmVersion2 from '../components/AlgorithmVersion2.vue'
+import AlgorithmVersion3 from '../components/AlgorithmVersion3.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
@@ -35,9 +36,26 @@ import { RouterLink } from 'vue-router'
           <p class="p-1">
             This version generates a poem variation by creating many variations using the Version 1
             algorithm, then choosing the best version of each line to include in the final
-            variation.
+            variation.  The best variation is determined by using a fine-tuned version of GPT-3.
           </p>
           <AlgorithmVersion2 />
+        </div>
+      </div>
+
+      <div class="collapse group bg-base-200 rounded-md shadow-lg">
+        <input type="checkbox" class="peer" />
+        <div
+          class="collapse-title text-xl text-primary-content group-hover:bg-primary peer-checked:bg-primary peer-checked:text-secondary-content"
+        >
+          Version 3
+        </div>
+        <div class="collapse-content text-primary-content peer-checked:text-secondary-content">
+          <p class="p-1">
+            This version generates a poem variation by creating many variations using the Version 1
+            algorithm, then choosing the best version of each line to include in the final
+            variation. The best variation is determined by using a fine-tuned version of GPT-4o-mini.
+          </p>
+          <AlgorithmVersion3 />
         </div>
       </div>
     </div>

@@ -49,7 +49,7 @@ export default {
       }
       API.graphql<GraphQLQuery<GenerateCombinedVariationMutation>>({
         query: mutations.generateCombinedVariation,
-        variables: { originalPoem: this.text, algoVersion: "v2", replacementTypeCounts }
+        variables: { originalPoem: this.text, algoVersion: "v3", replacementTypeCounts }
       })
         .then((result) => {
           let resultString = result.data?.generateCombinedVariation ?? ''
