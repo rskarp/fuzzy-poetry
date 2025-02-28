@@ -13,7 +13,8 @@ from string import punctuation
 import concurrent.futures
 from nltk.tokenize import word_tokenize, sent_tokenize
 nltk.data.path.append('./nltk_data')
-nltk.download('punkt_tab')
+nltk.data.path.append('/tmp')
+nltk.download('punkt_tab', download_dir='/tmp')
 
 NEWLINECHAR_PLACEHOLDER = 'NEWLINECHAR'
 client = boto3.client("dynamodb", 'us-east-1')
