@@ -6,15 +6,15 @@ const awsmobile = {
   aws_cloud_logic_custom: [
     {
       name: 'fuzzyPoetryApi',
-      endpoint: 'https://td7w3jxto1.execute-api.us-east-1.amazonaws.com/staging',
+      endpoint: 'https://td7w3jxto1.execute-api.us-east-1.amazonaws.com/develop',
       region: 'us-east-1'
     }
   ],
   aws_appsync_graphqlEndpoint:
-    'https://3xspzuyfejfungozfk2brgzcpy.appsync-api.us-east-1.amazonaws.com/graphql',
+    'https://trtq6b4a7fe6tlnghg6r76or5a.appsync-api.us-east-1.amazonaws.com/graphql',
   aws_appsync_region: 'us-east-1',
   aws_appsync_authenticationType: 'API_KEY',
-  aws_appsync_apiKey: 'da2-ijg24ln7tzfnnfh7nmmq4a6b7q'
+  aws_appsync_apiKey: 'da2-tobwjnkedfafvic3522paruwpu'
 }
 
 export default awsmobile
