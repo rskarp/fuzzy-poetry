@@ -31,19 +31,16 @@
     "LambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Metadata": {
-        "aws:asset:path": "./src",
+        "aws:asset:path": "./",
         "aws:asset:property": "Code"
       },
       "Properties": {
+        "PackageType": "Image",
         "Code": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
+          "ImageUri": {
+            "Fn::Sub": "imageUri"
           }
         },
-        "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
@@ -78,7 +75,11 @@
             "Arn"
           ]
         },
-        "Runtime": "python3.9",
+        "ImageConfig": {
+          "Command": [
+            "src.index.handler"
+          ]
+        },
         "Layers": [],
         "Timeout": 25
       }
