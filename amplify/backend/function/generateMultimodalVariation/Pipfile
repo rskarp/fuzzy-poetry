@@ -6,7 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-src = {editable = true, path = "./src"}
 regex = "*"
 boto3 = "*"
 python-datamuse = "*"

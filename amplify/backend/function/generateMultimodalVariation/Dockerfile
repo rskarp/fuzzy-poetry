@@ -2,10 +2,14 @@ FROM public.ecr.aws/lambda/python:3.9
 
 WORKDIR /var/task
 
-COPY Pipfile Pipfile.lock ./
+COPY Pipfile ./
+
+RUN yum update -y && \
+    yum install -y cmake
 
 RUN pip install pipenv && \
-    pipenv install --deploy --system
+    pipenv requirements > requirements.txt && \
+    pip install -r requirements.txt --no-deps --target .
 
 COPY . .
 
