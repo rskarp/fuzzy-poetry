@@ -32,7 +32,8 @@
       "Type": "AWS::Lambda::Function",
       "Metadata": {
         "aws:asset:path": "./",
-        "aws:asset:property": "Code"
+        "aws:asset:property": "Code",
+        "DockerfileName": "Dockerfile"
       },
       "Properties": {
         "PackageType": "Image",
@@ -78,6 +79,9 @@
         "ImageConfig": {
           "Command": [
             "src.index.handler"
+          ],
+          "EntryPoint": [
+            "/lambda-entrypoint.sh"
           ]
         },
         "Layers": [],
