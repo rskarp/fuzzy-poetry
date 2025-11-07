@@ -24,7 +24,8 @@
         "sendEmail": {
           "deploymentBucketName": "amplify-fuzzypoetry-develop-15021-deployment",
           "s3Key": "amplify-builds/sendEmail-616977544c62326b515a-build.zip"
-        }
+        },
+        "generateMultimodalVariation": {}
       },
       "api": {
         "FuzzyPoetry": {}

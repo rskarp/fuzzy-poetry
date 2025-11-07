@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+src = {editable = true, path = "./src"}
+regex = "*"
+boto3 = "*"
+python-datamuse = "*"
+Pillow = "*"
+nltk = "*"
+openai = "1.65.1"
+lancedb = "*"
+open-clip-torch = "*"
+
+[requires]
+python_version = "3.9"

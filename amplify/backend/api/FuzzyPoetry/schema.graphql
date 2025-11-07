@@ -33,6 +33,14 @@ type Mutation {
     algoVersion: String
   ): String @auth(rules: [{ allow: public }]) @function(name: "generateCombinedVariation-${env}")
 
+  generateMultimodalVariation(
+    inputImageUrl: String
+    replacementTypeCounts: ReplacementTypeCounts
+    numRelatedImages: Int
+    model: String
+    passImageToModel: Boolean
+  ): String @auth(rules: [{ allow: public }]) @function(name: "generateMultimodalVariation-${env}")
+
   sendEmail(
     senderName: String
     senderAddress: String
