@@ -15,6 +15,9 @@ export type ModelPoemVariationConditionInput = {
   and?: Array< ModelPoemVariationConditionInput | null > | null,
   or?: Array< ModelPoemVariationConditionInput | null > | null,
   not?: ModelPoemVariationConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -55,6 +58,13 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type PoemVariation = {
@@ -104,9 +114,12 @@ export type ModelPoemVariationFilterInput = {
   id?: ModelIDInput | null,
   original_text?: ModelStringInput | null,
   variation_text?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelPoemVariationFilterInput | null > | null,
   or?: Array< ModelPoemVariationFilterInput | null > | null,
   not?: ModelPoemVariationFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelIDInput = {
@@ -136,8 +149,11 @@ export type ModelSubscriptionPoemVariationFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   original_text?: ModelSubscriptionStringInput | null,
   variation_text?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPoemVariationFilterInput | null > | null,
   or?: Array< ModelSubscriptionPoemVariationFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -244,6 +260,18 @@ export type GenerateCombinedVariationMutationVariables = {
 
 export type GenerateCombinedVariationMutation = {
   generateCombinedVariation?: string | null,
+};
+
+export type GenerateMultimodalVariationMutationVariables = {
+  inputImageUrl?: string | null,
+  replacementTypeCounts?: ReplacementTypeCounts | null,
+  numRelatedImages?: number | null,
+  model?: string | null,
+  passImageToModel?: boolean | null,
+};
+
+export type GenerateMultimodalVariationMutation = {
+  generateMultimodalVariation?: string | null,
 };
 
 export type SendEmailMutationVariables = {

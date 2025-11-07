@@ -2,9 +2,36 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getPoemVariation = /* GraphQL */ `
-  query GetPoemVariation($id: ID!) {
-    getPoemVariation(id: $id) {
+import * as APITypes from "../API";
+type GeneratedQuery<InputType, OutputType> = string & {
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
+};
+
+export const getPoemVariation = /* GraphQL */ `query GetPoemVariation($id: ID!) {
+  getPoemVariation(id: $id) {
+    id
+    original_text
+    variation_text
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetPoemVariationQueryVariables,
+  APITypes.GetPoemVariationQuery
+>;
+export const listPoemVariations = /* GraphQL */ `query ListPoemVariations(
+  $filter: ModelPoemVariationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPoemVariations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       original_text
       variation_text
@@ -13,56 +40,46 @@ export const getPoemVariation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const listPoemVariations = /* GraphQL */ `
-  query ListPoemVariations(
-    $filter: ModelPoemVariationFilterInput
-    $limit: Int
-    $nextToken: String
+}
+` as GeneratedQuery<
+  APITypes.ListPoemVariationsQueryVariables,
+  APITypes.ListPoemVariationsQuery
+>;
+export const syncPoemVariations = /* GraphQL */ `query SyncPoemVariations(
+  $filter: ModelPoemVariationFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncPoemVariations(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
   ) {
-    listPoemVariations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        original_text
-        variation_text
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
+    items {
+      id
+      original_text
+      variation_text
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const syncPoemVariations = /* GraphQL */ `
-  query SyncPoemVariations(
-    $filter: ModelPoemVariationFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPoemVariations(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        original_text
-        variation_text
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
+}
+` as GeneratedQuery<
+  APITypes.SyncPoemVariationsQueryVariables,
+  APITypes.SyncPoemVariationsQuery
+>;

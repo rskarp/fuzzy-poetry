@@ -30,6 +30,12 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "generateMultimodalVariation": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "generatePoemVariation": {
       "build": true,
       "dependsOn": [],
