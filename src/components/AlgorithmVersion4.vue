@@ -22,7 +22,7 @@ export default {
         { label: 'Deepseek R1', value: 'deepseek-r1' },
         { label: 'Claude Opus 4.1', value: 'claude-opus-4_1' },
         { label: 'Claude Opus 4', value: 'claude-opus-4' },
-        { label: 'Claude Sonnet 4', value: 'claude-sonnet-4' }
+        { label: 'Claude Sonnet 4', value: 'claude-sonnet-4' },
         { label: 'GPT 4.1 Nano', value: 'gpt-4.1-nano' }
       ],
       numRelatedImages: 3,
