@@ -31,15 +31,18 @@
         "LambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Metadata": {
-                "aws:asset:path": "./",
-                "aws:asset:property": "Code",
-                "DockerfileName": "Dockerfile"
+                "aws:asset:path": "./src",
+                "aws:asset:property": "Code"
             },
             "Properties": {
-                "PackageType": "Image",
-                "Code": {
-                    "ImageUri": "643007696022.dkr.ecr.us-east-1.amazonaws.com/poetry/fuzzy-poetry:generateMultimodalVariation-latest"
+                "S3Bucket": {
+                    "Ref": "deploymentBucketName"
                 },
+                "S3Key": {
+                    "Ref": "s3Key"
+                },
+                "Runtime": "python3.9",
+                "Handler": "index.handler",
                 "FunctionName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
@@ -72,14 +75,6 @@
                     "Fn::GetAtt": [
                         "LambdaExecutionRole",
                         "Arn"
-                    ]
-                },
-                "ImageConfig": {
-                    "Command": [
-                        "src.index.handler"
-                    ],
-                    "EntryPoint": [
-                        "/lambda-entrypoint.sh"
                     ]
                 },
                 "Layers": [],

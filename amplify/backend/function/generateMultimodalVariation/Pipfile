@@ -12,8 +12,6 @@ python-datamuse = "*"
 Pillow = "*"
 nltk = "*"
 openai = "1.65.1"
-lancedb = "*"
-open-clip-torch = "*"
 
 [requires]
 python_version = "3.9"
