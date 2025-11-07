@@ -35,11 +35,13 @@
                 "aws:asset:property": "Code"
             },
             "Properties": {
-                "S3Bucket": {
-                    "Ref": "deploymentBucketName"
-                },
-                "S3Key": {
-                    "Ref": "s3Key"
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "deploymentBucketName"
+                    },
+                    "S3Key": {
+                        "Ref": "s3Key"
+                    }
                 },
                 "Runtime": "python3.9",
                 "Handler": "index.handler",
