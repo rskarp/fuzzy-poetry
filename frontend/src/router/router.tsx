@@ -12,6 +12,11 @@ const router = createBrowserRouter([
     errorElement: <PageNotFound />,
     children: [
       {
+        path: Path.Unknown,
+        element: <PageNotFound />,
+        errorElement: <PageNotFound />,
+      },
+      {
         path: Path.Root,
         element: <Navigate replace to={Path.Home} />,
         errorElement: <PageNotFound />,
@@ -42,11 +47,6 @@ const router = createBrowserRouter([
         errorElement: <PageNotFound />,
       },
     ],
-  },
-  {
-    path: Path.Unknown,
-    element: <PageNotFound />,
-    errorElement: <PageNotFound />,
   },
 ]);
 
