@@ -1,8 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import ErrorBoundary from "../components/error-boundary";
+import ErrorBoundary from "../components/app/error-boundary";
 import App from "../App";
-import PageNotFound from "../components/page-not-found";
+import PageNotFound from "../components/app/page-not-found";
 import { Path } from "./path";
+import HomePage from "../components/home-page/home-page";
+import OverviewPage from "../components/overview-page/overview-page";
+import ContactPage from "../components/contact-page/contact-page";
+import ContextPage from "../components/context-page/context-page";
+import ContributorsPage from "../components/contributors-page/contributors-page";
 
 const router = createBrowserRouter([
   {
@@ -23,27 +28,27 @@ const router = createBrowserRouter([
       },
       {
         path: Path.Home,
-        element: <div>Home Page</div>,
+        element: <HomePage />,
         errorElement: <PageNotFound />,
       },
       {
         path: Path.Overview,
-        element: <div>Overview</div>,
+        element: <OverviewPage />,
         errorElement: <PageNotFound />,
       },
       {
         path: Path.Context,
-        element: <div>Context Page</div>,
+        element: <ContextPage />,
         errorElement: <PageNotFound />,
       },
       {
         path: Path.Contributors,
-        element: <div>Contributors Page</div>,
+        element: <ContributorsPage />,
         errorElement: <PageNotFound />,
       },
       {
         path: Path.Contact,
-        element: <div>Contact Page</div>,
+        element: <ContactPage />,
         errorElement: <PageNotFound />,
       },
     ],

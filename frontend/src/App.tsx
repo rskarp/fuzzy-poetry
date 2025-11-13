@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router'
 import './App.css'
-import Navbar from './components/navbar'
+import Navbar from './components/app/navbar'
 import { useMemo } from 'react'
 
 const App = () => {
@@ -10,11 +10,10 @@ const App = () => {
   }, [])
 
   return (
-    <>
-      <div data-theme="dark" className="root">
+      <div data-theme="dark" className="root w-full min-h-screen flex flex-col">
         <Navbar />
-        
-        <div className="p-5 bg-base-200 content">
+
+        <div className="bg-base-200 flex-1">
           <Outlet />
         </div>
 
@@ -24,7 +23,6 @@ const App = () => {
           </div>
         </footer>
       </div>
-    </>
   )
 }
 

@@ -23,13 +23,88 @@ import type {
 import * as axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import type {
-  HTTPValidationError,
-  PoemV1CreateRequest,
-  PoemV2CreateRequest,
-  PoemV3CreateRequest,
-  PoemV4CreateRequest,
-} from "./model";
+export interface HTTPValidationError {
+  detail?: ValidationError[];
+}
+
+/**
+ * Response model for a poem
+ */
+export interface PoemResponse {
+  poem_content: string;
+}
+
+export interface PoemV1CreateRequest {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface PoemV2CreateRequest {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface PoemV3CreateRequest {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export type PoemV4CreateRequestInputImageUrl = string | null;
+
+export type PoemV4CreateRequestReplacementTypeCounts =
+  ReplacementTypeCounts | null;
+
+export type PoemV4CreateRequestNumRelatedImages = number | null;
+
+export type PoemV4CreateRequestModel = string | null;
+
+export type PoemV4CreateRequestPassImageToModel = boolean | null;
+
+/**
+ * Request model for generating a multimodal variation
+ */
+export interface PoemV4CreateRequest {
+  inputImageUrl?: PoemV4CreateRequestInputImageUrl;
+  replacementTypeCounts?: PoemV4CreateRequestReplacementTypeCounts;
+  numRelatedImages?: PoemV4CreateRequestNumRelatedImages;
+  model?: PoemV4CreateRequestModel;
+  passImageToModel?: PoemV4CreateRequestPassImageToModel;
+}
+
+export type ReplacementTypeCountsMeansLike = number | null;
+
+export type ReplacementTypeCountsTriggeredBy = number | null;
+
+export type ReplacementTypeCountsAnagram = number | null;
+
+export type ReplacementTypeCountsSpelledLike = number | null;
+
+export type ReplacementTypeCountsConsonantMatch = number | null;
+
+export type ReplacementTypeCountsHomophone = number | null;
+
+/**
+ * Counts for each type of replacement to apply
+ */
+export interface ReplacementTypeCounts {
+  means_like?: ReplacementTypeCountsMeansLike;
+  triggered_by?: ReplacementTypeCountsTriggeredBy;
+  anagram?: ReplacementTypeCountsAnagram;
+  spelled_like?: ReplacementTypeCountsSpelledLike;
+  consonant_match?: ReplacementTypeCountsConsonantMatch;
+  homophone?: ReplacementTypeCountsHomophone;
+}
+
+export type ValidationErrorLocItem = string | number;
+
+export interface ValidationError {
+  loc: ValidationErrorLocItem[];
+  msg: string;
+  type: string;
+}
 
 /**
  * @summary Root
@@ -419,7 +494,7 @@ export const useGeneratePoemV3GeneratePoemV3Post = <
 export const generatePoemV4GeneratePoemV4Post = (
   poemV4CreateRequest: PoemV4CreateRequest,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<unknown>> => {
+): Promise<AxiosResponse<PoemResponse>> => {
   return axios.default.post(`/generate-poem-v4`, poemV4CreateRequest, options);
 };
 

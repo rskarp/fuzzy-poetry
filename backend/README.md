@@ -1,14 +1,24 @@
 Install dependencies
 ```
+# Create virtual environment
 uv venv .venv
-uv pip install -r poetry.lock
+
+# Install dependencies
+uv pip install -e .
+
+# Add a new dependency
+uv add package-name
+
+# Add a dev dependency
+uv add --dev package-name
+
+# Update dependencies
+uv lock --upgrade
+
+# Sync your environment with uv.lock
+uv sync
 ```
 Run the app
 ```
-source .venv/bin/activate
-uvicorn main:app --reload
-```
-or 
-```
-uv run uvicorn main:app --reload
+uv run uvicorn src.main:app --reload --env-file .env
 ```

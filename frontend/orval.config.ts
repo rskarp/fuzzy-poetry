@@ -5,7 +5,6 @@ export default defineConfig({
     output: {
       mode: 'single',
       target: './src/api.ts',
-      schemas: './src/model',
       client: 'react-query',
     },
     input: {

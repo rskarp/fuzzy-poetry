@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.poem_v2 import PoemV2CreateRequest
+from src.models.poem_v2 import PoemV2CreateRequest
 
 router = APIRouter()
 
