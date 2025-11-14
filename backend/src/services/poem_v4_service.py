@@ -49,31 +49,24 @@ class Images(LanceModel):
 
 
 class PoemV4Service:
-    def __init__(self):
+    def __init__(
+        self,
+        openai_client: OpenAI,
+        datamuse_client: datamuse.Datamuse,
+        bedrock_client: boto3.client,
+    ):
         self.init_nltk()
 
-        self.openai_client = OpenAI(
-            organization=os.getenv("OPENAI_ORGANIZATION"),
-            api_key=os.getenv("OPENAI_API_KEY"),
-        )
-        self.datamuse_client = datamuse.Datamuse()
-        self.bedrock_client = boto3.client(
-            service_name="bedrock-runtime", region_name="us-east-1"
-        )
+        self.openai_client = openai_client
+        self.datamuse_client = datamuse_client
+        self.bedrock_client = bedrock_client
         self.bucket_name = os.getenv("S3_BUCKET_NAME")
         self.table_name = os.getenv("LANCEDB_TABLE_NAME")
         self.lancedb_client = lancedb.connect(f"s3://{self.bucket_name}/")
         self.lancedb_table = self.lancedb_client.open_table(self.table_name)
 
     def init_nltk(self):
-        local_data_path = "./nltk_data"
         temp_data_path = "/tmp"
-
-        if not os.path.exists(local_data_path):
-            os.makedirs(local_data_path, exist_ok=True)
-
-        if local_data_path not in nltk.data.path:
-            nltk.data.path.insert(0, local_data_path)
 
         if temp_data_path not in nltk.data.path:
             nltk.data.path.insert(0, temp_data_path)
@@ -85,7 +78,7 @@ class PoemV4Service:
         ]
 
         for package in packages_to_download:
-            nltk.download(package, download_dir=temp_data_path, force=True)
+            nltk.download(package, download_dir=temp_data_path)
 
     def get_tokens(self, originalText):
         tokens = []

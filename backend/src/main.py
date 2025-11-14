@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from src.api import root, poem_v1, poem_v2, poem_v3, poem_v4
+from src.api import root, health, poem_v1, poem_v2, poem_v3, poem_v4
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -19,6 +19,7 @@ async def startup_event():
 
 
 app.include_router(root.router)
+app.include_router(health.router)
 app.include_router(poem_v1.router)
 app.include_router(poem_v2.router)
 app.include_router(poem_v3.router)

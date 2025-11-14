@@ -14,7 +14,6 @@ const router = createBrowserRouter([
     path: Path.Root,
     element: <App />,
     ErrorBoundary: ErrorBoundary,
-    errorElement: <PageNotFound />,
     children: [
       {
         path: Path.Unknown,

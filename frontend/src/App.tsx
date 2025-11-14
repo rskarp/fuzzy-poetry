@@ -1,13 +1,24 @@
 import { Outlet } from 'react-router'
 import './App.css'
 import Navbar from './components/app/navbar'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import { useDetailedHealthCheckHealthDetailedGet } from './api'
 
 const App = () => {
 
   const curYear = useMemo(() => {
     return new Date().getFullYear()
-  }, [])
+  }, []);
+
+  const {data: apiHealth} = useDetailedHealthCheckHealthDetailedGet();
+  const hasLoggedRef = useRef(false);
+
+  useEffect(() => {
+    if (apiHealth && !hasLoggedRef.current) {
+      console.log("API Health:", apiHealth);
+      hasLoggedRef.current = true;
+    }
+  }, [apiHealth]);
 
   return (
       <div data-theme="dark" className="root w-full min-h-screen flex flex-col">

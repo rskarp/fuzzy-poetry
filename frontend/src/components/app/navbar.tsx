@@ -7,7 +7,7 @@ const NavBar = () => {
     <>
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start flex-1">
-                <a className="btn btn-ghost text-xl"><Link to={Path.Root}>Fuzzy Poetry</Link></a>
+                <div className="btn btn-ghost text-xl"><Link to={Path.Root}>Fuzzy Poetry</Link></div>
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">

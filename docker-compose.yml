@@ -26,7 +26,7 @@ services:
       - ./frontend:/app  # Hot reload
       - frontend-node-modules:/app/node_modules
     environment:
-      - VITE_API_URL=http://backend:8000
+      - VITE_API_URL=/api # Vite proxy routes this to http://backend:8000
     depends_on:
       - backend
 
