@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, system-ui, Avenir,  Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,8 +15,8 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #4ADE80;
+  text-decoration: underline;
 }
 a:hover {
   color: #535bf2;
@@ -42,7 +42,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #535bf2;
   cursor: pointer;
   transition: border-color 0.25s;
 }

@@ -24,7 +24,7 @@ const App = () => {
       <div data-theme="dark" className="root w-full min-h-screen flex flex-col">
         <Navbar />
 
-        <div className="bg-base-200 flex-1">
+        <div className="text-left p-4 bg-base-200 flex-1">
           <Outlet />
         </div>
 
