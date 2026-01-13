@@ -17,7 +17,7 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://backend:8000',
+        target: 'http://backend:8000', // Use http://localhost:8000 if running locally instead of docker
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

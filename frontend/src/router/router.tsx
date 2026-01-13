@@ -22,12 +22,12 @@ const router = createBrowserRouter([
       },
       {
         path: Path.Root,
-        element: <Navigate replace to={Path.Home} />,
+        element: <HomePage />,
         errorElement: <PageNotFound />,
       },
       {
         path: Path.Home,
-        element: <HomePage />,
+        element: <Navigate replace to={Path.Root} />,
         errorElement: <PageNotFound />,
       },
       {

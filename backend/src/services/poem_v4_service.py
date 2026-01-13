@@ -62,6 +62,9 @@ class PoemV4Service:
         self.bedrock_client = bedrock_client
         self.bucket_name = os.getenv("S3_BUCKET_NAME")
         self.table_name = os.getenv("LANCEDB_TABLE_NAME")
+        logger.info(
+            f"Connecting to LanceDB S3 bucket: {self.bucket_name}, table: {self.table_name}"
+        )
         self.lancedb_client = lancedb.connect(f"s3://{self.bucket_name}/")
         self.lancedb_table = self.lancedb_client.open_table(self.table_name)
 
