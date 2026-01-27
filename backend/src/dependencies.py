@@ -1,3 +1,4 @@
+from src.services.notification_service import NotificationService
 from src.services.poem_v3_service import PoemV3Service
 from src.services.poem_v4_service import PoemV4Service
 from functools import lru_cache
@@ -6,6 +7,7 @@ import boto3
 from openai import OpenAI
 import os
 import datamuse
+from sendgrid import SendGridAPIClient
 
 
 def get_version():
@@ -33,6 +35,11 @@ def get_datamuse_client():
     return datamuse.Datamuse()
 
 
+@lru_cache()
+def get_ses_client():
+    return boto3.client("ses", region_name="us-east-1")
+
+
 def get_lancedb_client():
     # db = get_db()
     # try:
@@ -54,3 +61,8 @@ def get_poem_v3_service():
     return PoemV3Service(
         get_openai_client(), get_datamuse_client(), get_bedrock_client()
     )
+
+
+@lru_cache()
+def get_notification_service():
+    return NotificationService(get_ses_client())
