@@ -4,7 +4,7 @@
  * FastAPI
  * OpenAPI spec version: 0.1.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -18,12 +18,42 @@ import type {
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
-import { customAxiosInstance } from "./api-client";
+import { customAxiosInstance } from './api-client';
+export interface ContactEmailCreateRequest {
+  senderName?: string;
+  senderAddress?: string;
+  emailContent?: string;
+  emailSubject?: string;
+}
+
+/**
+ * Response model for a contact email
+ */
+export interface ContactEmailResponse {
+  status_code: number;
+}
+
 export interface HTTPValidationError {
   detail?: ValidationError[];
 }
+
+/**
+ * Enum for different LLM model names
+ */
+export type LLMName = (typeof LLMName)[keyof typeof LLMName];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LLMName = {
+  'deepseek-r1': 'deepseek-r1',
+  'claude-opus-4_1': 'claude-opus-4_1',
+  'claude-opus-4': 'claude-opus-4',
+  'claude-sonnet-4': 'claude-sonnet-4',
+  'gpt-41-nano': 'gpt-4.1-nano',
+  'gpt-5-mini': 'gpt-5-mini',
+  'gpt-51': 'gpt-5.1',
+} as const;
 
 /**
  * Response model for a poem
@@ -32,22 +62,34 @@ export interface PoemResponse {
   poem_content: string;
 }
 
+export type PoemV1CreateRequestInputPoem = string | null;
+
+export type PoemV1CreateRequestReplacementTypeCounts =
+  ReplacementTypeCounts | null;
+
 export interface PoemV1CreateRequest {
-  name: string;
-  email: string;
-  message: string;
+  inputPoem?: PoemV1CreateRequestInputPoem;
+  replacementTypeCounts?: PoemV1CreateRequestReplacementTypeCounts;
 }
+
+export type PoemV2CreateRequestInputPoem = string | null;
+
+export type PoemV2CreateRequestReplacementTypeCounts =
+  ReplacementTypeCounts | null;
 
 export interface PoemV2CreateRequest {
-  name: string;
-  email: string;
-  message: string;
+  inputPoem?: PoemV2CreateRequestInputPoem;
+  replacementTypeCounts?: PoemV2CreateRequestReplacementTypeCounts;
 }
 
+export type PoemV3CreateRequestInputPoem = string | null;
+
+export type PoemV3CreateRequestReplacementTypeCounts =
+  ReplacementTypeCounts | null;
+
 export interface PoemV3CreateRequest {
-  name: string;
-  email: string;
-  message: string;
+  inputPoem?: PoemV3CreateRequestInputPoem;
+  replacementTypeCounts?: PoemV3CreateRequestReplacementTypeCounts;
 }
 
 export type PoemV4CreateRequestInputImageUrl = string | null;
@@ -57,7 +99,7 @@ export type PoemV4CreateRequestReplacementTypeCounts =
 
 export type PoemV4CreateRequestNumRelatedImages = number | null;
 
-export type PoemV4CreateRequestModel = string | null;
+export type PoemV4CreateRequestModel = LLMName | null;
 
 export type PoemV4CreateRequestPassImageToModel = boolean | null;
 
@@ -108,7 +150,7 @@ export interface ValidationError {
  * @summary Api Info
  */
 export const apiInfoInfoGet = (signal?: AbortSignal) => {
-  return customAxiosInstance<unknown>({ url: `/info`, method: "GET", signal });
+  return customAxiosInstance<unknown>({ url: `/info`, method: 'GET', signal });
 };
 
 export const getApiInfoInfoGetQueryKey = () => {
@@ -157,10 +199,10 @@ export function useApiInfoInfoGet<
           TError,
           Awaited<ReturnType<typeof apiInfoInfoGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -178,10 +220,10 @@ export function useApiInfoInfoGet<
           TError,
           Awaited<ReturnType<typeof apiInfoInfoGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -194,7 +236,7 @@ export function useApiInfoInfoGet<
       UseQueryOptions<Awaited<ReturnType<typeof apiInfoInfoGet>>, TError, TData>
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -211,7 +253,7 @@ export function useApiInfoInfoGet<
       UseQueryOptions<Awaited<ReturnType<typeof apiInfoInfoGet>>, TError, TData>
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
@@ -228,13 +270,102 @@ export function useApiInfoInfoGet<
 }
 
 /**
+ * @summary Sendcontactemail
+ */
+export const sendContactEmailSendContactEmailPost = (
+  contactEmailCreateRequest: ContactEmailCreateRequest,
+  signal?: AbortSignal
+) => {
+  return customAxiosInstance<ContactEmailResponse>({
+    url: `/send-contact-email`,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: contactEmailCreateRequest,
+    signal,
+  });
+};
+
+export const getSendContactEmailSendContactEmailPostMutationOptions = <
+  TError = HTTPValidationError,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>,
+    TError,
+    { data: ContactEmailCreateRequest },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>,
+  TError,
+  { data: ContactEmailCreateRequest },
+  TContext
+> => {
+  const mutationKey = ['sendContactEmailSendContactEmailPost'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>,
+    { data: ContactEmailCreateRequest }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return sendContactEmailSendContactEmailPost(data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SendContactEmailSendContactEmailPostMutationResult = NonNullable<
+  Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>
+>;
+export type SendContactEmailSendContactEmailPostMutationBody =
+  ContactEmailCreateRequest;
+export type SendContactEmailSendContactEmailPostMutationError =
+  HTTPValidationError;
+
+/**
+ * @summary Sendcontactemail
+ */
+export const useSendContactEmailSendContactEmailPost = <
+  TError = HTTPValidationError,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>,
+      TError,
+      { data: ContactEmailCreateRequest },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof sendContactEmailSendContactEmailPost>>,
+  TError,
+  { data: ContactEmailCreateRequest },
+  TContext
+> => {
+  const mutationOptions =
+    getSendContactEmailSendContactEmailPostMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+
+/**
  * Basic health check - always returns healthy if API is running
  * @summary Health Check
  */
 export const healthCheckHealthGet = (signal?: AbortSignal) => {
   return customAxiosInstance<unknown>({
     url: `/health`,
-    method: "GET",
+    method: 'GET',
     signal,
   });
 };
@@ -293,10 +424,10 @@ export function useHealthCheckHealthGet<
           TError,
           Awaited<ReturnType<typeof healthCheckHealthGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -318,10 +449,10 @@ export function useHealthCheckHealthGet<
           TError,
           Awaited<ReturnType<typeof healthCheckHealthGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -338,7 +469,7 @@ export function useHealthCheckHealthGet<
       >
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -359,7 +490,7 @@ export function useHealthCheckHealthGet<
       >
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
@@ -382,7 +513,7 @@ export function useHealthCheckHealthGet<
 export const detailedHealthCheckHealthDetailedGet = (signal?: AbortSignal) => {
   return customAxiosInstance<unknown>({
     url: `/health/detailed`,
-    method: "GET",
+    method: 'GET',
     signal,
   });
 };
@@ -442,10 +573,10 @@ export function useDetailedHealthCheckHealthDetailedGet<
           TError,
           Awaited<ReturnType<typeof detailedHealthCheckHealthDetailedGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -467,10 +598,10 @@ export function useDetailedHealthCheckHealthDetailedGet<
           TError,
           Awaited<ReturnType<typeof detailedHealthCheckHealthDetailedGet>>
         >,
-        "initialData"
+        'initialData'
       >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -487,7 +618,7 @@ export function useDetailedHealthCheckHealthDetailedGet<
       >
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -508,7 +639,7 @@ export function useDetailedHealthCheckHealthDetailedGet<
       >
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
@@ -530,12 +661,12 @@ export function useDetailedHealthCheckHealthDetailedGet<
  */
 export const generatePoemV1GeneratePoemV1Post = (
   poemV1CreateRequest: PoemV1CreateRequest,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ) => {
-  return customAxiosInstance<unknown>({
+  return customAxiosInstance<PoemResponse>({
     url: `/generate-poem-v1`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     data: poemV1CreateRequest,
     signal,
   });
@@ -557,10 +688,10 @@ export const getGeneratePoemV1GeneratePoemV1PostMutationOptions = <
   { data: PoemV1CreateRequest },
   TContext
 > => {
-  const mutationKey = ["generatePoemV1GeneratePoemV1Post"];
+  const mutationKey = ['generatePoemV1GeneratePoemV1Post'];
   const { mutation: mutationOptions } = options
     ? options.mutation &&
-      "mutationKey" in options.mutation &&
+      'mutationKey' in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -599,7 +730,7 @@ export const useGeneratePoemV1GeneratePoemV1Post = <
       TContext
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseMutationResult<
   Awaited<ReturnType<typeof generatePoemV1GeneratePoemV1Post>>,
   TError,
@@ -617,12 +748,12 @@ export const useGeneratePoemV1GeneratePoemV1Post = <
  */
 export const generatePoemV2GeneratePoemV2Post = (
   poemV2CreateRequest: PoemV2CreateRequest,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ) => {
-  return customAxiosInstance<unknown>({
+  return customAxiosInstance<PoemResponse>({
     url: `/generate-poem-v2`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     data: poemV2CreateRequest,
     signal,
   });
@@ -644,10 +775,10 @@ export const getGeneratePoemV2GeneratePoemV2PostMutationOptions = <
   { data: PoemV2CreateRequest },
   TContext
 > => {
-  const mutationKey = ["generatePoemV2GeneratePoemV2Post"];
+  const mutationKey = ['generatePoemV2GeneratePoemV2Post'];
   const { mutation: mutationOptions } = options
     ? options.mutation &&
-      "mutationKey" in options.mutation &&
+      'mutationKey' in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -686,7 +817,7 @@ export const useGeneratePoemV2GeneratePoemV2Post = <
       TContext
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseMutationResult<
   Awaited<ReturnType<typeof generatePoemV2GeneratePoemV2Post>>,
   TError,
@@ -704,12 +835,12 @@ export const useGeneratePoemV2GeneratePoemV2Post = <
  */
 export const generatePoemV3GeneratePoemV3Post = (
   poemV3CreateRequest: PoemV3CreateRequest,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ) => {
-  return customAxiosInstance<unknown>({
+  return customAxiosInstance<PoemResponse>({
     url: `/generate-poem-v3`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     data: poemV3CreateRequest,
     signal,
   });
@@ -731,10 +862,10 @@ export const getGeneratePoemV3GeneratePoemV3PostMutationOptions = <
   { data: PoemV3CreateRequest },
   TContext
 > => {
-  const mutationKey = ["generatePoemV3GeneratePoemV3Post"];
+  const mutationKey = ['generatePoemV3GeneratePoemV3Post'];
   const { mutation: mutationOptions } = options
     ? options.mutation &&
-      "mutationKey" in options.mutation &&
+      'mutationKey' in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -773,7 +904,7 @@ export const useGeneratePoemV3GeneratePoemV3Post = <
       TContext
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseMutationResult<
   Awaited<ReturnType<typeof generatePoemV3GeneratePoemV3Post>>,
   TError,
@@ -791,12 +922,12 @@ export const useGeneratePoemV3GeneratePoemV3Post = <
  */
 export const generatePoemV4GeneratePoemV4Post = (
   poemV4CreateRequest: PoemV4CreateRequest,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ) => {
   return customAxiosInstance<PoemResponse>({
     url: `/generate-poem-v4`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     data: poemV4CreateRequest,
     signal,
   });
@@ -818,10 +949,10 @@ export const getGeneratePoemV4GeneratePoemV4PostMutationOptions = <
   { data: PoemV4CreateRequest },
   TContext
 > => {
-  const mutationKey = ["generatePoemV4GeneratePoemV4Post"];
+  const mutationKey = ['generatePoemV4GeneratePoemV4Post'];
   const { mutation: mutationOptions } = options
     ? options.mutation &&
-      "mutationKey" in options.mutation &&
+      'mutationKey' in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -860,7 +991,7 @@ export const useGeneratePoemV4GeneratePoemV4Post = <
       TContext
     >;
   },
-  queryClient?: QueryClient,
+  queryClient?: QueryClient
 ): UseMutationResult<
   Awaited<ReturnType<typeof generatePoemV4GeneratePoemV4Post>>,
   TError,

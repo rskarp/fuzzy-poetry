@@ -11,9 +11,11 @@ export const AXIOS_INSTANCE = Axios.create({
 });
 
 // Custom instance with interceptors
-export const customAxiosInstance = <T>(config: AxiosRequestConfig): Promise<T> => {
+export const customAxiosInstance = <T>(
+  config: AxiosRequestConfig
+): Promise<T> => {
   const source = Axios.CancelToken.source();
-  
+
   const promise = AXIOS_INSTANCE({
     ...config,
     cancelToken: source.token,

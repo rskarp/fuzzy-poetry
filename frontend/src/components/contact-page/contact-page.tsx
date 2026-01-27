@@ -1,22 +1,58 @@
-import { useState } from "react"
+import { useState } from 'react';
+import {
+  useSendContactEmailSendContactEmailPost,
+  type ContactEmailCreateRequest,
+  type ContactEmailResponse,
+} from '../../api';
 
 const ContactPage = () => {
-  const [fullName, setFullName] = useState('')
-  const [subject, setSubject] = useState('')
-  const [emailBody, setEmailBody] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-  
+  const [fullName, setFullName] = useState('');
+  const [subject, setSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { mutate } = useSendContactEmailSendContactEmailPost();
+
   const callApi = async () => {
     setLoading(true);
-  }
+    setErrorMessage('');
+    setSuccessMessage('');
+    const body: ContactEmailCreateRequest = {
+      senderName: fullName,
+      senderAddress: emailAddress,
+      emailSubject: subject,
+      emailContent: emailBody,
+    };
+    mutate(
+      { data: body },
+      {
+        onSuccess: (response: ContactEmailResponse) => {
+          console.log('API response:', response);
+          setSuccessMessage(
+            'Your message has been sent successfully! Thank you for contacting us.'
+          );
+        },
+        onError: (error: any) => {
+          console.error('API error:', error);
+          setErrorMessage(
+            'An error occurred while sending your message. Please try again later.'
+          );
+        },
+        onSettled: () => {
+          setLoading(false);
+        },
+      }
+    );
+  };
 
   return (
-  <div>
-    <h1 className="text-violet-500 text-2xl">Contact Us</h1>
-    <p>We would love to hear from you!</p>
-    <label className="label flex-row justify-start">
+    <div>
+      <h1 className="text-violet-500 text-2xl">Contact Us</h1>
+      <p>We would love to hear from you!</p>
+      <label className="label flex-row justify-start">
         <span className="label-text px-2">Full Name: </span>
         <input
           type="text"
@@ -61,7 +97,11 @@ const ContactPage = () => {
           Send
         </button>
       ) : (
-        <button className="btn btn-disabled bg-primary text-white" aria-busy="true" disabled>
+        <button
+          className="btn btn-disabled bg-primary text-white"
+          aria-busy="true"
+          disabled
+        >
           <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
@@ -82,7 +122,10 @@ const ContactPage = () => {
       )}
 
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
-  </div>
+      {successMessage && (
+        <p className="text-green-500 mt-2">{successMessage}</p>
+      )}
+    </div>
   );
 };
 

@@ -14,6 +14,18 @@ class ReplacementType(str, Enum):
     HOMOPHONE = "HOMOPHONE"
 
 
+class LLMName(str, Enum):
+    """Enum for different LLM model names"""
+
+    DEEPSEEK_R1 = "deepseek-r1"
+    CLAUDE_OPUS_4_1 = "claude-opus-4_1"
+    CLAUDE_OPUS_4 = "claude-opus-4"
+    CLAUDE_SONNET_4 = "claude-sonnet-4"
+    GPT_4_1_NANO = "gpt-4.1-nano"
+    GPT_5_MINI = "gpt-5-mini"
+    GPT_5_1 = "gpt-5.1"
+
+
 class PoemResponse(BaseModel):
     """Response model for a poem"""
 

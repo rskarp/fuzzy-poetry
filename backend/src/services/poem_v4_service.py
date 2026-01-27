@@ -31,6 +31,8 @@ CLAUDE_OPUS_41 = "us.anthropic.claude-opus-4-1-20250805-v1:0"
 CLAUDE_OPUS_4 = "us.anthropic.claude-opus-4-20250514-v1:0"
 CLAUDE_SONNET_4 = "us.anthropic.claude-sonnet-4-20250514-v1:0"
 GPT_41_NANO = "gpt-4.1-nano"
+GPT_5_MINI = "gpt-5-mini"
+GPT_51 = "gpt-5.1"
 NEWLINECHAR_PLACEHOLDER = "NEWLINECHAR"
 
 
@@ -384,8 +386,12 @@ class PoemV4Service:
             return CLAUDE_SONNET_4
         elif model_short_name == "gpt-4.1-nano":
             return GPT_41_NANO
+        elif model_short_name == "gpt-5.1":
+            return GPT_51
+        elif model_short_name == "gpt-5-mini":
+            return GPT_5_MINI
         else:
-            return GPT_41_NANO
+            return GPT_5_MINI
 
     def generate_initial_text(
         self, image_source: str, k: int, model: str, passImageToModel: bool

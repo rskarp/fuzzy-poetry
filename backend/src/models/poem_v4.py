@@ -1,6 +1,6 @@
 from typing import Optional, List
 from pydantic import BaseModel, Field
-from src.models.common import ReplacementTypeCounts
+from src.models.common import LLMName, ReplacementTypeCounts
 
 
 class PoemV4CreateRequest(BaseModel):
@@ -11,7 +11,7 @@ class PoemV4CreateRequest(BaseModel):
         None, alias="replacementTypeCounts"
     )
     num_related_images: Optional[int] = Field(None, alias="numRelatedImages")
-    model: Optional[str] = None
+    model: Optional[LLMName] = None
     pass_image_to_model: Optional[bool] = Field(None, alias="passImageToModel")
 
     class Config:
