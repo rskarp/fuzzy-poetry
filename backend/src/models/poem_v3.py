@@ -1,7 +1,13 @@
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
+from src.models.common import ReplacementTypeCounts
 
 
 class PoemV3CreateRequest(BaseModel):
-    name: str
-    email: str
-    message: str
+    poem: Optional[str] = Field(None, alias="inputPoem")
+    replacement_type_counts: Optional[ReplacementTypeCounts] = Field(
+        None, alias="replacementTypeCounts"
+    )
+
+    class Config:
+        populate_by_name = True

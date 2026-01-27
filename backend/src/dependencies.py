@@ -1,3 +1,4 @@
+from src.services.poem_v3_service import PoemV3Service
 from src.services.poem_v4_service import PoemV4Service
 from functools import lru_cache
 from importlib.metadata import version, PackageNotFoundError
@@ -44,5 +45,12 @@ def get_lancedb_client():
 @lru_cache()
 def get_poem_v4_service():
     return PoemV4Service(
+        get_openai_client(), get_datamuse_client(), get_bedrock_client()
+    )
+
+
+@lru_cache()
+def get_poem_v3_service():
+    return PoemV3Service(
         get_openai_client(), get_datamuse_client(), get_bedrock_client()
     )
