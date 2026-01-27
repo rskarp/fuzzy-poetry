@@ -7,7 +7,6 @@ import boto3
 from openai import OpenAI
 import os
 import datamuse
-from sendgrid import SendGridAPIClient
 
 
 def get_version():
