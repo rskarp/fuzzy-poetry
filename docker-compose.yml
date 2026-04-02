@@ -9,12 +9,13 @@ services:
       - ./backend/.env
     environment:
       - UV_LINK_MODE=copy
-      - AWS_PROFILE=default
+      - AWS_SHARED_CREDENTIALS_FILE=/root/.aws/credentials
+      - AWS_CONFIG_FILE=/root/.aws/config
     volumes:
       - ./backend:/app  # Hot reload
       - backend-venv:/app/.venv
       - ~/.aws:/root/.aws:ro
-    command: uv run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
     build:

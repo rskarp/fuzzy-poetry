@@ -1,12 +1,15 @@
 import { Link } from 'react-router';
 import { Path } from '../../../router/path';
 import Version from '../version';
-import { useState, Fragment } from 'react';
+import { useState, Fragment, type ChangeEvent } from 'react';
 import {
   LLMName,
   useGeneratePoemV4GeneratePoemV4Post,
+  useGenerateUploadUrlGenerateUploadUrlPost,
   type PoemResponse,
   type PoemV4CreateRequest,
+  type UploadUrlRequest,
+  type UploadUrlResponse,
 } from '../../../api';
 
 type ModelOption = { label: string; value: string };
@@ -23,7 +26,7 @@ const MODEL_LABELS: Record<(typeof LLMName)[keyof typeof LLMName], string> = {
 
 /** build strongly-typed options from the LLMName const */
 const llmValues = Object.values(
-  LLMName
+  LLMName,
 ) as (typeof LLMName)[keyof typeof LLMName][];
 const modelOptions: ModelOption[] = llmValues.map((v) => ({
   label: MODEL_LABELS[v] ?? v,
@@ -38,6 +41,8 @@ type Replacement = {
   rel_cns: number;
   rel_hom: number;
 };
+
+type InputType = 'url' | 'image';
 
 const Version4 = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -56,32 +61,21 @@ const Version4 = () => {
   const [passImageToModel, setPassImageToModel] = useState<boolean>(false);
   const [numRelatedImages, setNumRelatedImages] = useState<number>(3);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [inputType, setInputType] = useState<InputType>('url');
+  const [file, setFile] = useState<File | null>(null);
 
   const { mutate } = useGeneratePoemV4GeneratePoemV4Post();
+  const { mutate: mutateUploadUrl } =
+    useGenerateUploadUrlGenerateUploadUrlPost();
 
   const updateReplacement = (key: keyof Replacement, value: number) => {
     setReplacement((prev) => ({ ...prev, [key]: value }));
   };
 
-  const callApi = async (event?: React.MouseEvent<HTMLButtonElement>) => {
-    event?.preventDefault();
-    setLoading(true);
-    setPoem([]);
-
-    const values = Object.values(replacement);
-    const total = values.reduce((a, b) => a + b, 0);
-
-    // If all zeros, default synonyms to 1
-    if (!values.some((r) => r)) {
-      setReplacement((prev) => ({ ...prev, ml: 1 }));
-    } else if (total > 60) {
-      setTooManyVars(true);
-      setLoading(false);
-      return;
-    }
-
+  const generateVariation = async (curImageUrl: string) => {
+    console.log('generating poem');
     const body: PoemV4CreateRequest = {
-      inputImageUrl: imageUrl,
+      inputImageUrl: curImageUrl,
       replacementTypeCounts: {
         means_like: replacement.ml,
         triggered_by: replacement.rel_trg,
@@ -107,8 +101,53 @@ const Version4 = () => {
         onSettled: () => {
           setLoading(false);
         },
-      }
+      },
     );
+  };
+
+  const callApi = async (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault();
+    setLoading(true);
+    setPoem([]);
+
+    const values = Object.values(replacement);
+    const total = values.reduce((a, b) => a + b, 0);
+
+    // If all zeros, default synonyms to 1
+    if (!values.some((r) => r)) {
+      setReplacement((prev) => ({ ...prev, ml: 1 }));
+    } else if (total > 60) {
+      setTooManyVars(true);
+      setLoading(false);
+      return;
+    }
+
+    if (file) {
+      mutateUploadUrl(
+        {
+          data: {
+            fileName: file?.name,
+            fileType: file?.type,
+          } as UploadUrlRequest,
+        },
+        {
+          onSuccess: async (response: UploadUrlResponse) => {
+            console.log('uploading image');
+            fetch(response.uploadUrl, {
+              method: 'PUT',
+              body: file,
+              headers: { 'Content-Type': file?.type }, // Must match the type used during URL generation
+            }).then(() => generateVariation(response.fileKey));
+          },
+          onError: (error: any) => {
+            console.error('API error:', error);
+            setLoading(false);
+          },
+        },
+      );
+    } else {
+      generateVariation(imageUrl);
+    }
   };
 
   const generateWordsList = (poemVariation?: string): string[] => {
@@ -131,6 +170,37 @@ const Version4 = () => {
     return match?.[1];
   };
 
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputType(e.target.value as InputType);
+    // reset other inputs when switching types
+    setImageUrl('');
+    setFile(null);
+  };
+
+  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+
+    if (!file) {
+      alert('No file selected!');
+      return;
+    }
+
+    // Basic validation for image file types
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(file.name ?? '')) {
+      alert('Please upload an image file.');
+      return;
+    }
+
+    // Check size (e.g., limit to 5MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File is too large!');
+      return;
+    }
+
+    setFile(file);
+  };
+
   return (
     <Version versionName="Version 4">
       <div>
@@ -139,22 +209,65 @@ const Version4 = () => {
           that poem through Version 3 of our algorithm. To learn more, visit our{' '}
           <Link to={Path.Overview}>Project Overview Page</Link>.
         </p>
-        <p>
-          For example, try:{' '}
-          <a
-            className="link"
-            href="https://live.staticflickr.com/65535/54638556216_146f8ac2b6_k.jpg"
-          >
-            https://live.staticflickr.com/65535/54638556216_146f8ac2b6_k.jpg
-          </a>
-        </p>
-        <input
-          type="text"
-          placeholder="Enter Image URL"
-          className="input"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
+
+        <div>
+          <span className="text-violet-500 text-2xl">Image Input</span>
+        </div>
+
+        <div className="flex flex-row gap-4 mb-2">
+          <label className="cursor-pointer">
+            <input
+              type="radio"
+              name="image-input-type"
+              value="url"
+              checked={inputType === 'url'}
+              onChange={handleRadioChange}
+            />{' '}
+            URL
+          </label>
+
+          <label className="cursor-pointer">
+            <input
+              type="radio"
+              name="image-input-type"
+              value="image"
+              checked={inputType === 'image'}
+              onChange={handleRadioChange}
+            />{' '}
+            Image Upload
+          </label>
+        </div>
+
+        {inputType === 'url' ? (
+          <>
+            <p>
+              For example, try:{' '}
+              <a
+                className="link"
+                href="https://live.staticflickr.com/65535/54638556216_146f8ac2b6_k.jpg"
+              >
+                https://live.staticflickr.com/65535/54638556216_146f8ac2b6_k.jpg
+              </a>
+            </p>
+            <input
+              type="text"
+              placeholder="Enter Image URL"
+              className="input"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+            />
+          </>
+        ) : (
+          <>
+            <p>Select an image to upload.</p>
+            <input
+              type="file"
+              accept="image/*"
+              className="file-input file-input-bordered file-input-sm w-full"
+              onChange={onImageChange}
+            />
+          </>
+        )}
 
         <details
           className="w-full mb-2"
@@ -199,7 +312,7 @@ const Version4 = () => {
                 onChange={(e) => {
                   const n = parseInt(e.target.value, 10);
                   setNumRelatedImages(
-                    Number.isNaN(n) ? 1 : Math.max(1, Math.min(10, n))
+                    Number.isNaN(n) ? 1 : Math.max(1, Math.min(10, n)),
                   );
                 }}
                 className="input focus:outline-primary input-bordered input-xs w-12"
