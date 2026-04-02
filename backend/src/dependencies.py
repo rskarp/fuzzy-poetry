@@ -1,4 +1,5 @@
 from src.services.notification_service import NotificationService
+from src.services.image_service import ImageService
 from src.services.poem_v3_service import PoemV3Service
 from src.services.poem_v4_service import PoemV4Service
 from functools import lru_cache
@@ -39,6 +40,11 @@ def get_ses_client():
     return boto3.client("ses", region_name="us-east-1")
 
 
+@lru_cache()
+def get_s3_client():
+    return boto3.client("s3", region_name="us-east-1")
+
+
 def get_lancedb_client():
     # db = get_db()
     # try:
@@ -51,7 +57,10 @@ def get_lancedb_client():
 @lru_cache()
 def get_poem_v4_service():
     return PoemV4Service(
-        get_openai_client(), get_datamuse_client(), get_bedrock_client()
+        get_openai_client(),
+        get_datamuse_client(),
+        get_bedrock_client(),
+        get_image_service(),
     )
 
 
@@ -65,3 +74,8 @@ def get_poem_v3_service():
 @lru_cache()
 def get_notification_service():
     return NotificationService(get_ses_client())
+
+
+@lru_cache()
+def get_image_service():
+    return ImageService(get_s3_client())

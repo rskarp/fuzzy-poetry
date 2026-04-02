@@ -2,6 +2,9 @@ from enum import Enum
 from pydantic import BaseModel
 from typing import Optional
 
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png"}
+ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
+
 
 class ReplacementType(str, Enum):
     """Enum for different types of word replacements"""

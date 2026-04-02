@@ -22,6 +22,7 @@ import re
 import nltk
 import base64
 import logging
+from src.services.image_service import ImageService
 
 logger = logging.getLogger(__name__)
 
@@ -56,12 +57,14 @@ class PoemV4Service:
         openai_client: OpenAI,
         datamuse_client: datamuse.Datamuse,
         bedrock_client: boto3.client,
+        image_service=ImageService,
     ):
         self.init_nltk()
 
         self.openai_client = openai_client
         self.datamuse_client = datamuse_client
         self.bedrock_client = bedrock_client
+        self.image_service = image_service
         self.bucket_name = os.getenv("S3_BUCKET_NAME")
         self.table_name = os.getenv("LANCEDB_TABLE_NAME")
         logger.info(
@@ -449,8 +452,12 @@ class PoemV4Service:
         self,
         request: PoemV4CreateRequest,
     ) -> str:
+        if request.input_image_url.startswith("uploads/"):
+            imageUrl = self.image_service.generate_download_url(request.input_image_url)
+        else:
+            imageUrl = request.input_image_url
         initial_text = self.generate_initial_text(
-            request.input_image_url,
+            imageUrl,
             request.num_related_images,
             request.model,
             request.pass_image_to_model,
@@ -461,4 +468,7 @@ class PoemV4Service:
         )
         logger.debug(f"Final poem variation: {variation}")
 
+        if request.input_image_url.startswith("uploads/"):
+            logger.debug("Deleting image from s3")
+            self.image_service.delete_object(request.input_image_url)
         return variation

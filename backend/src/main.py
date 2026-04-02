@@ -9,7 +9,16 @@ from mangum import Mangum
 
 load_dotenv()
 
-from src.api import root, health, poem_v1, poem_v2, poem_v3, poem_v4, contact_email
+from src.api import (
+    root,
+    health,
+    poem_v1,
+    poem_v2,
+    poem_v3,
+    poem_v4,
+    contact_email,
+    image_upload,
+)
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -56,5 +65,6 @@ app.include_router(poem_v1.router)
 app.include_router(poem_v2.router)
 app.include_router(poem_v3.router)
 app.include_router(poem_v4.router)
+app.include_router(image_upload.router)
 
 handler = Mangum(app)
