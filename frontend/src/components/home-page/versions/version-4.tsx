@@ -11,6 +11,7 @@ import {
   type UploadUrlRequest,
   type UploadUrlResponse,
 } from '../../../api';
+import FileDrop from '../../app/file-drop';
 
 type ModelOption = { label: string; value: string };
 
@@ -177,8 +178,8 @@ const Version4 = () => {
     setFile(null);
   };
 
-  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+  const onImageChange = (files: File[]) => {
+    const file = files.at(0);
 
     if (!file) {
       alert('No file selected!');
@@ -260,11 +261,13 @@ const Version4 = () => {
         ) : (
           <>
             <p>Select an image to upload.</p>
-            <input
-              type="file"
+            <FileDrop
+              onFiles={onImageChange}
               accept="image/*"
-              className="file-input file-input-bordered file-input-sm w-full"
-              onChange={onImageChange}
+              multiple={false}
+              maxFiles={1}
+              maxSizeBytes={5 * 1024 * 1024} // 5 MB
+              label="Drop image here, or click to choose"
             />
           </>
         )}
