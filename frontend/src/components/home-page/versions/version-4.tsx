@@ -62,7 +62,7 @@ const Version4 = () => {
   const [passImageToModel, setPassImageToModel] = useState<boolean>(false);
   const [numRelatedImages, setNumRelatedImages] = useState<number>(3);
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [inputType, setInputType] = useState<InputType>('url');
+  const [inputType, setInputType] = useState<InputType>('image');
   const [file, setFile] = useState<File | null>(null);
 
   const { mutate } = useGeneratePoemV4GeneratePoemV4Post();
@@ -220,22 +220,22 @@ const Version4 = () => {
             <input
               type="radio"
               name="image-input-type"
-              value="url"
-              checked={inputType === 'url'}
+              value="image"
+              checked={inputType === 'image'}
               onChange={handleRadioChange}
             />{' '}
-            URL
+            Image Upload
           </label>
 
           <label className="cursor-pointer">
             <input
               type="radio"
               name="image-input-type"
-              value="image"
-              checked={inputType === 'image'}
+              value="url"
+              checked={inputType === 'url'}
               onChange={handleRadioChange}
             />{' '}
-            Image Upload
+            URL
           </label>
         </div>
 
